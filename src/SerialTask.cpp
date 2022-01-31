@@ -5,3 +5,5 @@
 #endif
 #include "SerialTask.h"
 #include "shares.h"
+
+Serial.begin (115200);

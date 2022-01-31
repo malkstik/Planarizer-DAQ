@@ -20,11 +20,11 @@ void task_data(void* p_params)
     uint8_t state = 0;
     unsigned long first_time = 0;  
     unsigned long time = 0;
-    float x_pos = 0;
-    float z_pos = 0;
+    float yaw_pos = 0;
+    float pitch_pos = 0;
 
-    STM32Encoder xENC (TIM2, E1CHA, E1CHB);
-    STM32Encoder zENC (TIM3, E2CHA, E2CHB);
+    STM32Encoder yawENC (TIM2, E1CHA, E1CHB);
+    STM32Encoder pitchENC (TIM3, E2CHA, E2CHB);
 
     for(;;)
     {
@@ -33,11 +33,16 @@ void task_data(void* p_params)
             first_time = millis();
             state = 1;
         }
-        elif(state==1)
+        else if(state==1)
         {
-            x_pos = xENC.update();
-            z_pos = zENC.update();
+            yaw_pos = yawENC.update();
+            pitch_pos = pitchENC.update();
             time = millis() - first_time;
+
+            yaw.put(yaw_pos);
+            pitch.put(pitch_pos);
+            time_data.put(time);
+
         }
         vTaskDelay(5);
     }

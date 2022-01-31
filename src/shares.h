@@ -19,14 +19,12 @@
 
 // A queue which triggers a task to print the count at certain times
 
-/// @brief Zen Garden x position data
-extern Queue<float> xref;
+/// @brief Yaw data
+extern Queue<float> yaw;
 
-/// @brief Zen Garden y position data
-extern Queue<float> yref;
+/// @brief Pitch data
+extern Queue<float> pitch;
 
-/// @brief Array of mostly zeros with just a one at the end to signify all data has been sent
-extern Queue<uint8_t> data_NOTavail;
-
-
+/// @brief Time data
+extern Queue<float> time_data;     
 #endif // _SHARES_H_

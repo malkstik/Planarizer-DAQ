@@ -1,3 +1,10 @@
+/** @file main.cpp
+ *  This file contains a program for running the Planarizer DAQ.
+ *  
+ *  Source code available here:
+ *  @author  Aaron Tran
+ *  @date    24-Nov-2021 
+ */
 #include <Arduino.h>
 #include <PrintStream.h>
 #if (defined STM32L4xx || defined STM32F4xx)
@@ -10,6 +17,17 @@
 
 #include "SerialTask.h"
 #include "DataTask.h"
+
+//Queue declarations
+/// @brief Yaw data
+Queue<float> yaw(50, "yaw");
+
+/// @brief Pitch data
+Queue<float> pitch(50, "pitch");      
+
+/// @brief Pitch data
+Queue<float> time_data(50, "pitch");      
+
 void setup () 
 {
     // Start the serial port, wait a short time, then say hello. Use the
