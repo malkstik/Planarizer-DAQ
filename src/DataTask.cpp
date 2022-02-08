@@ -28,6 +28,7 @@ void task_data(void* p_params)
 
     for(;;)
     {
+        Serial.begin(115200);
         if(state==0)
         {
             first_time = millis();
@@ -35,16 +36,15 @@ void task_data(void* p_params)
         }
         else if(state==1)
         {
-            yaw_pos = yawENC.update();
-            pitch_pos = pitchENC.update();
+            yaw_pos = 2*3.14159/625*yawENC.update();
+            //pitch_pos = pitchENC.update();
             time = millis() - first_time;
 
             yaw.put(yaw_pos);
-            pitch.put(pitch_pos);
+            //pitch.put(pitch_pos);
             time_data.put(time);
-
         }
-        vTaskDelay(5);
+        vTaskDelay(100);
     }
 
 }

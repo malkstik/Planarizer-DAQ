@@ -6,4 +6,23 @@
 #include "SerialTask.h"
 #include "shares.h"
 
-Serial.begin (115200);
+
+void task_serial(void* p_params)
+{
+    (void) p_params;
+
+    uint8_t state = 0;
+    Serial.begin (115200);
+    for(;;)
+        {
+            if(state==0)
+            {
+            //Serial << "Pitch: "<< pitch.get() << "deg" << endl;
+            Serial << "Yaw: " << yaw.get() << "deg" << endl;  
+            Serial << "Time: " << time_data.get() << "ms" << endl << endl;
+            }
+            vTaskDelay(100);
+
+        }
+
+}
