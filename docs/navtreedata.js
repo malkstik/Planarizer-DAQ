@@ -25,6 +25,9 @@
 var NAVTREE =
 [
   [ "Planarizer DAQ", "index.html", [
+    [ "Planarizer DAQ Documentation", "index.html", [
+      [ "Introduction", "index.html#intro_sec", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

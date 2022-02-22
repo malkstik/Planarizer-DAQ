@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Planarizer DAQ: Planarizer DAQ Documentation</title>
+<title>Planarizer DAQ: src/taskqueue.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('taskqueue_8h.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -83,26 +83,42 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">Planarizer DAQ Documentation </div></div>
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">taskqueue.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
-Introduction</h1>
-<p >Our Senior Project Group, consisting of Aaron Tran, Eric Ramos, Matthew Wimberley, and Tim Jain, was tasked with designing and manufacturing a test stand for the Cal Poly Legged Robot Team. The team needed a way to constrain a single robot leg to 2DOF in the sagittal plane. Hence, our test stand "planarizes" the robot leg. With the additional need of requiring that the robot leg be able to reach a steady state gait, we determined that a boom system would work best, though it only approximates the sagittal plane. This DAQ is responsible for measuring the corresponding rotational value of the Planarizer, allowing for us to track the position of the robot leg during testing.</p>
-<p >The DAQ consists of two STM32L476RG Nucleos, synchronized using two HiLetgo HC-05 bluetooth transceivers. The DAQ makes use of two US Digital E6 Optical Kit Encoders to measure the yaw and pitch of the encoders. These values are then processed, plotted, and saved in MATLAB. <br  />
-For more information, refer to the following links <br  />
-</p><ul>
-<li>GitHub: <a href="https://github.com/malkstik/Planarizer-DAQ">https://github.com/malkstik/Planarizer-DAQ</a></li>
-<li>Senior Project Report: <br  />
- </li>
-</ul>
-</div></div><!-- PageDoc -->
-</div><!-- contents -->
+<div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &quot;FreeRTOS.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="baseshare_8h_source.html">baseshare.h</a>&quot;</code><br />
+</div>
+<p><a href="taskqueue_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_queue.html">Queue&lt; dataType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements a queue to transmit data from one RTOS task to another.  <a href="class_queue.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >This file contains a very simple wrapper class for the FreeRTOS queue. It makes using the queue just a little bit easier in C++ than it is in C. This version has been tested on STM32's and ESP32's only because the insertion and extraction operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code> need specific functions to determine if they're running in ISR's or not.</p>
+<dl class="section date"><dt>Date</dt><dd>2012-Oct-21 JRR Original file </dd>
+<dd>
+2014-Aug-26 JRR Changed file names and queue class name to <a class="el" href="class_queue.html" title="Implements a queue to transmit data from one RTOS task to another.">Queue</a> </dd>
+<dd>
+2020-Oct-10 JRR Made compatible with Arduino/FreeRTOS environment </dd>
+<dd>
+2020-Nov-18 JRR Added <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators for ESP32 and STM32 </dd>
+<dd>
+2021-Sep-19 JRR Added overloads of <code>get()</code>, <code>ISR_get()</code>, <code>peek()</code>, and <code>ISR_peek()</code> which return copies</dd></dl>
+<p>License: This file is copyright 2012-2020 by JR Ridgely and released under the Lesser GNU Public License, version 2. It intended for educational use only, but its use is not limited thereto. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="taskqueue_8h.html">taskqueue.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
