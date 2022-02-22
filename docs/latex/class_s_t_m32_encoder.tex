@@ -1,0 +1,117 @@
+\hypertarget{class_s_t_m32_encoder}{}\doxysection{STM32\+Encoder Class Reference}
+\label{class_s_t_m32_encoder}\index{STM32Encoder@{STM32Encoder}}
+
+
+Class which operates an STM32 timer in quadrature encoder mode.  
+
+
+
+
+{\ttfamily \#include $<$Encoder\+Driver.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_t_m32_encoder_af12a9e4c2a45e9d096d0611a0cbc7589}{STM32\+Encoder}} (TIM\+\_\+\+Type\+Def $\ast$timer, uint8\+\_\+t pin1, uint8\+\_\+t pin2)
+\begin{DoxyCompactList}\small\item\em Set up an STM32 timer to read a quadrature encoder. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{class_s_t_m32_encoder_aaa81c6d6736667b165ccf81f1f417dc8}{get\+Count}} (void)
+\begin{DoxyCompactList}\small\item\em Return the current position count from the timer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_af1b3a03d36f25377333a24a5b6346219}\label{class_s_t_m32_encoder_af1b3a03d36f25377333a24a5b6346219}} 
+void {\bfseries zero} (void)
+\begin{DoxyCompactList}\small\item\em Set the counter reading to zero. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_a67f9555e6838296b6533f6ab71a0530e}\label{class_s_t_m32_encoder_a67f9555e6838296b6533f6ab71a0530e}} 
+void {\bfseries pause} (void)
+\begin{DoxyCompactList}\small\item\em Pause the counter so it won\textquotesingle{}t update its count until resumed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_ab9133c7ac41f4ca78b59947dce1070a8}\label{class_s_t_m32_encoder_ab9133c7ac41f4ca78b59947dce1070a8}} 
+void {\bfseries resume} (void)
+\begin{DoxyCompactList}\small\item\em Resume the counter so it will update its count when the encoder is moved. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_a32f8c7c4aaada2870bff98a07edbfbde}\label{class_s_t_m32_encoder_a32f8c7c4aaada2870bff98a07edbfbde}} 
+int32\+\_\+t {\bfseries update} (void)
+\begin{DoxyCompactList}\small\item\em Updates count value accounting for overflow. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_a10e7faf387af57a5d7ceac2146363d2d}\label{class_s_t_m32_encoder_a10e7faf387af57a5d7ceac2146363d2d}} 
+uint16\+\_\+t {\bfseries ct\+Now}
+\begin{DoxyCompactList}\small\item\em Current count value, ready for use. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_a4e7fb2a3ab34240a8b6db6fd4a6472bb}\label{class_s_t_m32_encoder_a4e7fb2a3ab34240a8b6db6fd4a6472bb}} 
+int32\+\_\+t {\bfseries real\+Ct}
+\begin{DoxyCompactList}\small\item\em Internal count value, unprocessed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_a33f33707094d4ec8c562cecfd628a6ef}\label{class_s_t_m32_encoder_a33f33707094d4ec8c562cecfd628a6ef}} 
+int32\+\_\+t {\bfseries delta}
+\begin{DoxyCompactList}\small\item\em Change in internal count value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_s_t_m32_encoder_ab8d5bacd29d76145a90f38dfbdf50138}\label{class_s_t_m32_encoder_ab8d5bacd29d76145a90f38dfbdf50138}} 
+Hardware\+Timer $\ast$ {\bfseries p\+\_\+timer}
+\begin{DoxyCompactList}\small\item\em Pointer to the timer/counter to be used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class which operates an STM32 timer in quadrature encoder mode. 
+
+This class sets up a timer/counter which is capable of reading quadrature signals from an incremental encoder and provides a method for retrieving a count which corresponds to the encoder\textquotesingle{}s position. The position will overflow, and this class doesn\textquotesingle{}t deal with that -- the user must periodically read the position and use it to update a position count with a large enough bit width that the full position reading does not overflow.
+
+So far this class has been tested with the following timers and pins on an STM32\+L476\+RG\+:
+\begin{DoxyItemize}
+\item Timer {\ttfamily TIM2} using pins {\ttfamily PA0} and {\ttfamily PA1} 
+\item Timer {\ttfamily TIM3} using pins {\ttfamily PB4} and {\ttfamily PB5} 
+\item Timer {\ttfamily TIM3} using pins {\ttfamily PA6} and {\ttfamily PA7} 
+\item Timer {\ttfamily TIM4} using pins {\ttfamily PB6} and {\ttfamily PB7} 
+\item Timer {\ttfamily TIM8} using pins {\ttfamily PC6} and {\ttfamily PC7} 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_s_t_m32_encoder_af12a9e4c2a45e9d096d0611a0cbc7589}\label{class_s_t_m32_encoder_af12a9e4c2a45e9d096d0611a0cbc7589}} 
+\index{STM32Encoder@{STM32Encoder}!STM32Encoder@{STM32Encoder}}
+\index{STM32Encoder@{STM32Encoder}!STM32Encoder@{STM32Encoder}}
+\doxysubsubsection{\texorpdfstring{STM32Encoder()}{STM32Encoder()}}
+{\footnotesize\ttfamily STM32\+Encoder\+::\+STM32\+Encoder (\begin{DoxyParamCaption}\item[{TIM\+\_\+\+Type\+Def $\ast$}]{timer,  }\item[{uint8\+\_\+t}]{pin1,  }\item[{uint8\+\_\+t}]{pin2 }\end{DoxyParamCaption})}
+
+
+
+Set up an STM32 timer to read a quadrature encoder. 
+
+This class prepares an STM32 timer in quadrature encoder reading mode, counting on each transition of either channel. It only works on timers whose hardware is quadrature compatible; check the data sheet to see which are. Each compatible timer must have the encoder connected to its channel 1 and 2 inputs; these inputs can only be connected to specific pins. For most timers there are two sets of pins from which we can choose. The alternate function tables in the STM32xxx data sheet shows which pins may be used with each timer.
+
+This class has been tested on an STM32\+L476\+RG and may or may not work on other STM32 processors; see the TODO in the constructor.
+
+{\bfseries{Example\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_s_t_m32_encoder}{STM32Encoder}} timer\_X (TIM3, PB4, PB5);      \textcolor{comment}{// Set up once}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int16\_t where\_am\_I = timer\_X.getCount ();   \textcolor{comment}{// In a loop}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyParams}{Parameters}
+{\em timer} & A pointer to a {\ttfamily TIM\+\_\+\+Type\+Def} object, such as {\ttfamily TIM3}, which designates the timer to be used \\
+\hline
+{\em pin1} & The pin to be configured for use with timer channel 1 \\
+\hline
+{\em pin2} & The pin to be configured for use with timer channel 2 \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_t_m32_encoder_aaa81c6d6736667b165ccf81f1f417dc8}\label{class_s_t_m32_encoder_aaa81c6d6736667b165ccf81f1f417dc8}} 
+\index{STM32Encoder@{STM32Encoder}!getCount@{getCount}}
+\index{getCount@{getCount}!STM32Encoder@{STM32Encoder}}
+\doxysubsubsection{\texorpdfstring{getCount()}{getCount()}}
+{\footnotesize\ttfamily uint16\+\_\+t STM32\+Encoder\+::get\+Count (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the current position count from the timer. 
+
+\begin{DoxyReturn}{Returns}
+The value in the timer\textquotesingle{}s count register 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_encoder_driver_8h}{Encoder\+Driver.\+h}}\item 
+src/Encoder\+Driver.\+cpp\end{DoxyCompactItemize}

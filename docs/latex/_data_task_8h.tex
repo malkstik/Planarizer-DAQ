@@ -1,0 +1,38 @@
+\hypertarget{_data_task_8h}{}\doxysection{src/\+Data\+Task.h File Reference}
+\label{_data_task_8h}\index{src/DataTask.h@{src/DataTask.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_data_task_8h_aa13051474ce28b24223039759aafbe71}{task\+\_\+data}} (void $\ast$p\+\_\+params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for reading the encoder and sending the data in a queue to {\ttfamily \mbox{\hyperlink{_serial_task_8cpp}{Serial\+Task.\+cpp}}} 
+
+Source code available here\+: {\ttfamily \href{https://github.com/malkstik/Planarizer-DAQ/blob/main/src/DataTask.h}{\texttt{ https\+://github.\+com/malkstik/\+Planarizer-\/\+DAQ/blob/main/src/\+Data\+Task.\+h}}} \begin{DoxyAuthor}{Author}
+Aaron Tran 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2022-\/Jan-\/17 Original file 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_data_task_8h_aa13051474ce28b24223039759aafbe71}\label{_data_task_8h_aa13051474ce28b24223039759aafbe71}} 
+\index{DataTask.h@{DataTask.h}!task\_data@{task\_data}}
+\index{task\_data@{task\_data}!DataTask.h@{DataTask.h}}
+\doxysubsubsection{\texorpdfstring{task\_data()}{task\_data()}}
+{\footnotesize\ttfamily void task\+\_\+data (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+params }\end{DoxyParamCaption})}
+
+State of task\+\_\+data finite state machine
+
+Start time of data collection
+
+Time of each data collection
+
+Yaw encoder data
+
+Pitch encoder data
+
+Incoming byte from serial communication

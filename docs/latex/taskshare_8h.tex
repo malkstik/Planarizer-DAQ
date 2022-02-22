@@ -1,0 +1,41 @@
+\hypertarget{taskshare_8h}{}\doxysection{src/taskshare.h File Reference}
+\label{taskshare_8h}\index{src/taskshare.h@{src/taskshare.h}}
+
+
+Data which can be shared between tasks in a thread-\/safe manner.  
+
+
+{\ttfamily \#include \char`\"{}baseshare.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Free\+RTOS.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_share}{Share$<$ Data\+Type $>$}}
+\begin{DoxyCompactList}\small\item\em Class for data to be shared in a thread-\/safe manner between tasks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Data which can be shared between tasks in a thread-\/safe manner. 
+
+This file contains a template class for data which is to be shared between tasks. The data must be protected against damage due to context switches, so it is protected by a mutex or by causing transfers to take place inside critical sections of code which are not interrupted. This version is known to work on STM32\textquotesingle{}s and ESP32\textquotesingle{}s only because the insertion and extraction operators {\ttfamily \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}} and {\ttfamily \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}} need specific functions to determine if they\textquotesingle{}re running in ISR\textquotesingle{}s or not.
+
+\begin{DoxyDate}{Date}
+2012-\/Oct-\/29 JRR Original file 
+
+2014-\/Aug-\/26 JRR Changed file names, class name to {\ttfamily Task\+Share}, removed unused version that uses semaphores, renamed {\ttfamily put()} and {\ttfamily get()} 
+
+2014-\/Oct-\/18 JRR Added linked list of all shares for tracking and debugging 
+
+2020-\/Oct-\/10 JRR Made compatible with Arduino, class name to {\ttfamily \mbox{\hyperlink{class_share}{Share}}} 
+
+2020-\/Nov-\/14 JRR Added new-\/\+ESP32 compatible {\ttfamily SHARE\+\_\+}...\+\_\+\+CRITICAL(x); added {\ttfamily \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}} and {\ttfamily \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}} operators 
+
+2020-\/Nov-\/18 JRR Critical sections not reliable; changed to a queue 
+
+2021-\/Sep-\/17 JRR Changed some {\ttfamily put} params from references to copies 
+
+2021-\/Sep-\/19 JRR Added overloads for {\ttfamily get()} which return values
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+This file is copyright 2014 -- 2021 by JR Ridgely and released under the Lesser GNU Public License, version 2. It intended for educational use only, but its use is not limited thereto. 
+\end{DoxyCopyright}

@@ -29,6 +29,9 @@ Queue<float> pitch(50, "pitch");
 /// @brief Pitch data
 Queue<float> time_data(50, "pitch");      
 
+/// @brief Data_state
+Share<uint8_t> data_state("state");
+
 void setup () 
 {
     // Start the serial port, wait a short time, then say hello. Use the

@@ -1,11 +1,12 @@
 /** @file SerialTask.cpp
- *  This file contains a task for sending and receiving data to the Control Task
- * 
- *  Source code available here:
+ *  Sends data over serial communication to frontend, @c PlanarizerDAQFrontEnd.mlx
  *  
+ *  Source code available here:
+ *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/SerialTask.cpp
  *  @author  Aaron Tran
  *  @date    2022-Jan-18 Original file
  */
+
 
 #ifndef _SERIALTASK_H
 #define _SERIALTASK_H

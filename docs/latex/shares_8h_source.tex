@@ -1,0 +1,27 @@
+\hypertarget{shares_8h_source}{}\doxysection{shares.\+h}
+\label{shares_8h_source}\index{src/shares.h@{src/shares.h}}
+\mbox{\hyperlink{shares_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef \_SHARES\_H\_}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define \_SHARES\_H\_}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{taskqueue_8h}{taskqueue.h}}"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{taskshare_8h}{taskshare.h}}"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{comment}{// A share which holds a counter of how many times a simulated event occurred}}
+\DoxyCodeLine{18 \textcolor{comment}{// extern Share<bool> bool\_var; example of share declaration}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{comment}{// A queue which triggers a task to print the count at certain times}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{23 \textcolor{keyword}{extern} \mbox{\hyperlink{class_queue}{Queue<float>}} \mbox{\hyperlink{shares_8h_aee7ca54fbb6f083bd77701b61e8458aa}{yaw}};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{26 \textcolor{keyword}{extern} \mbox{\hyperlink{class_queue}{Queue<float>}} \mbox{\hyperlink{shares_8h_a0d0be994e91dfedb098f75d766c91d04}{pitch}};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{29 \textcolor{keyword}{extern} \mbox{\hyperlink{class_queue}{Queue<float>}} \mbox{\hyperlink{shares_8h_a7abc3b688ed12aa9922bdc3ff0e46c7e}{time\_data}};     }
+\DoxyCodeLine{30 }
+\DoxyCodeLine{32 \textcolor{keyword}{extern} \mbox{\hyperlink{class_share}{Share<uint8\_t>}} \mbox{\hyperlink{shares_8h_aaffbce9129468f5f76bab7a8b6326e45}{data\_state}};}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_SHARES\_H\_}}
+
+\end{DoxyCode}
