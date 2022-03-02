@@ -18,14 +18,10 @@
 #include <math.h>
 
 //Encoder Pins
-/// @brief Yaw Encoder Channel A
-#define E1CHA PA0
-/// @brief Yaw Encoder Channel B
-#define E1CHB PA1
 /// @brief Pitch Encoder Channel A
-#define E2CHA PB4
+#define CHA PA0
 /// @brief Pitch Encoder Channel B
-#define E2CHB PB5
+#define CHB PA1
 
 void task_data(void* p_params)
 {
@@ -36,16 +32,15 @@ void task_data(void* p_params)
     unsigned long first_time = 0;  
     ///@brief Time of each data collection
     unsigned long time = 0;
-    ///@brief Yaw encoder data
-    float yaw_pos = 0;
     ///@brief Pitch encoder data
     float pitch_pos = 0;
-    ///@brief Incoming byte from serial communication
+    ///@brief Incoming byte from serial communication with PC
     uint8_t incoming = 0;
+    ///@brief Incoming byte from serial communication with Pitch MCU
+    uint8_t incoming_pitch = 0;
 
     // Drivers
-    STM32Encoder yawENC (TIM2, E1CHA, E1CHB);
-    STM32Encoder pitchENC (TIM3, E2CHA, E2CHB);
+    STM32Encoder pitchENC (TIM2, CHA, CHB);
     data_state.put(0);
     for(;;)
     {
@@ -54,29 +49,16 @@ void task_data(void* p_params)
         if(state==0)
         {
             first_time = millis();
-            if (Serial.available() > 0)
-            {
-                incoming = Serial.read();
-                //Serial.println(incoming, DEC);
-            }
-            Serial << "I saw this:" << (char)incoming << endl;
-            if (incoming == 'g')
-            {
-                data_state.put(1);
-            }
         }
         else if(state==1)
         {
             //For testing Serial Comm w/o encoder
             /*
-            yaw_pos = 360/40000*yawENC.update();
-            //pitch_pos = 360/40000*pitchENC.update();
+            pitch_pos = 360/40000*pitchENC.update();
             */
             time = millis() - first_time;
-            yaw_pos = cos(time);
             pitch_pos = sin(time);
 
-            yaw.put(yaw_pos);
             pitch.put(pitch_pos);
             time_data.put(time);
         }

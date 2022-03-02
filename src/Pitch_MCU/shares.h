@@ -19,8 +19,6 @@
 
 // A queue which triggers a task to print the count at certain times
 
-/// @brief Yaw data
-extern Queue<float> yaw;
 
 /// @brief Pitch data
 extern Queue<float> pitch;

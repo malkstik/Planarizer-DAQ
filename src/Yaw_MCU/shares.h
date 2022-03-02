@@ -19,14 +19,17 @@
 
 // A queue which triggers a task to print the count at certain times
 
-/// @brief Yaw data
+/// @brief Yaw datopopla
 extern Queue<float> yaw;
 
 /// @brief Pitch data
 extern Queue<float> pitch;
 
+/// @brief Pitch data
+extern Queue<float> pitch_time;
+
 /// @brief Time data
-extern Queue<float> time_data;     
+extern Queue<float> yaw_time;     
 
 /// @brief Data_state
 extern Share<uint8_t> data_state;

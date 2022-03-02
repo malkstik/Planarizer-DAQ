@@ -14,7 +14,10 @@
 #endif
 #include "SerialTask.h"
 #include "shares.h"
+#include "SoftwareSerial.h"
 
+#define Rx1 PA10
+#define Tx1 PA9
 
 void task_serial(void* p_params)
 {
@@ -22,19 +25,26 @@ void task_serial(void* p_params)
 
     ///@brief State of task_serial finite state machine
     uint8_t state = 0;
+    ///@brief Incoming byte from serial communication
+    uint8_t incoming = 0;
+    ///@brief UART pins for bluetooth
+    SoftwareSerial MyBlue(Rx1, Tx1); // RX | TX 
+    
+    MyBlue.begin(9600);
     Serial.begin (115200);
+    
     for(;;)
         {
             data_state.get(state);
             if(state==0)
             {
-                //Don't do anything in this state
+                //pass
             }
             else if(state==1)
             {
                 Serial << "Pitch:"<< pitch.get() << endl;
                 Serial << "Yaw:" << yaw.get() << endl;  
-                Serial << "Time:" << time_data.get() << endl;
+                Serial << "Time:" << yaw_time.get() << endl;
             }
             vTaskDelay(5);
 

@@ -15,14 +15,11 @@
 #include "taskqueue.h"         // Header for inter-task data queues
 #include "shares.h"            // Header for shares used in this project
 
-#include "SerialTask.h"
+#include "BluetoothTask.h"
 #include "DataTask.h"
 
 
 //Queue declarations
-/// @brief Yaw data
-Queue<float> yaw(50, "yaw");
-
 /// @brief Pitch data
 Queue<float> pitch(50, "pitch");      
 
@@ -48,7 +45,7 @@ void setup ()
                  NULL,
                  3,                               // Priority
                  NULL);
-    xTaskCreate (task_serial,
+    xTaskCreate (task_bluetooth,
                  "data",
                  4096,                            // Stack size
                  NULL,

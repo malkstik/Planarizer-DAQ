@@ -17,7 +17,7 @@
 
 #include "SerialTask.h"
 #include "DataTask.h"
-
+#include "BluetoothTask.h"
 
 //Queue declarations
 /// @brief Yaw data
@@ -27,7 +27,10 @@ Queue<float> yaw(50, "yaw");
 Queue<float> pitch(50, "pitch");      
 
 /// @brief Pitch data
-Queue<float> time_data(50, "pitch");      
+Queue<float> pitch_time(50, "pitch_time");      
+
+/// @brief Pitch data
+Queue<float> yaw_time(50, "yaw_time");      
 
 /// @brief Data_state
 Share<uint8_t> data_state("state");
@@ -53,7 +56,13 @@ void setup ()
                  4096,                            // Stack size
                  NULL,
                  2,                               // Priority
-                 NULL);                 
+                 NULL);
+    xTaskCreate (task_bluetooth,
+                 "data",
+                 4096,                            // Stack size
+                 NULL,
+                 2,                               // Priority
+                 NULL);                                      
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif
