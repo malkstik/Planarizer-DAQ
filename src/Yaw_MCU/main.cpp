@@ -1,5 +1,5 @@
 /** @file main.cpp
- *  This file contains a program for running the Planarizer DAQ.
+ *  This file contains a program for collecting yaw data, receiving pitch data, and sending both to the frontend
  *  
  *  Source code available here:
  *  @author  Aaron Tran
@@ -13,11 +13,11 @@
 
 #include "taskshare.h"         // Header for inter-task shared data
 #include "taskqueue.h"         // Header for inter-task data queues
-#include "shares.h"            // Header for shares used in this project
+#include "Yawshares.h"            // Header for shares used in this project
 
-#include "SerialTask.h"
-#include "DataTask.h"
-#include "BluetoothTask.h"
+#include "YawSerialTask.h"
+#include "YawDataTask.h"
+#include "YawBluetoothTask.h"
 
 //Queue declarations
 /// @brief Yaw data

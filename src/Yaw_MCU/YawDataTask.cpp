@@ -1,8 +1,8 @@
-/** @file DataTask.cpp
- *  This class is responsible for reading the encoder and sending the data in a queue to @c SerialTask.cpp
+/** @file YawDataTask.cpp
+ *  This task is responsible for reading the encoder and sending the data in a queue to @c YawSerialTask.cpp
  *  
  *  Source code available here:
- *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/DataTask.cpp
+ *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/Yaw_MCU/YawDataTask.cpp
  *  @author  Aaron Tran
  *  @date    2022-Jan-17 Original file
  */
@@ -12,9 +12,9 @@
 #if (defined STM32L4xx || defined STM32F4xx)
     #include <STM32FreeRTOS.h>
 #endif
-#include "DataTask.h"
+#include "YawDataTask.h"
 #include "EncoderDriver.h"
-#include "shares.h"
+#include "Yawshares.h"
 #include <math.h>
 
 //Encoder Pins

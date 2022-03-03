@@ -1,5 +1,5 @@
 /** @file main.cpp
- *  This file contains a program for running the Planarizer DAQ.
+ *  This file contains a program for measuring the pitch ticks and sending it over to the Yaw MCU
  *  
  *  Source code available here:
  *  @author  Aaron Tran
@@ -13,10 +13,10 @@
 
 #include "taskshare.h"         // Header for inter-task shared data
 #include "taskqueue.h"         // Header for inter-task data queues
-#include "shares.h"            // Header for shares used in this project
+#include "Pitchshares.h"            // Header for shares used in this project
 
-#include "BluetoothTask.h"
-#include "DataTask.h"
+#include "PitchBluetoothTask.h"
+#include "PitchDataTask.h"
 
 
 //Queue declarations
@@ -29,6 +29,10 @@ Queue<float> time_data(50, "pitch");
 /// @brief Data_state
 Share<uint8_t> data_state("state");
 
+/// @brief Handle for bluetooth task
+TaskHandle_t xBluetooth;
+
+
 void setup () 
 {
     // Start the serial port, wait a short time, then say hello. Use the
@@ -36,21 +40,20 @@ void setup ()
     Serial.begin (115200);
     delay (2000);
     Serial << endl << endl << "Initializing Mechatronic Zen Garden" << endl;
-
     // Create a task which sends design data
     // This task would also collect data and write it to a CSV file upon further development 
     xTaskCreate (task_data,
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 3,                               // Priority
+                 2,                               // Priority
                  NULL);
     xTaskCreate (task_bluetooth,
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 2,                               // Priority
-                 NULL);                 
+                 5,                               // Priority
+                 &xBluetooth);                 
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif

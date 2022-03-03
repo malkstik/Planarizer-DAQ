@@ -1,4 +1,4 @@
-/** @file shares.h
+/** @file Pitchshares.h
  *  This file contains extern declarations of shares and queues which are used
  *  in more than one file of a demonstration project.
  * 
@@ -19,17 +19,12 @@
 
 // A queue which triggers a task to print the count at certain times
 
-/// @brief Yaw datopopla
-extern Queue<float> yaw;
 
 /// @brief Pitch data
 extern Queue<float> pitch;
 
-/// @brief Pitch data
-extern Queue<float> pitch_time;
-
 /// @brief Time data
-extern Queue<float> yaw_time;     
+extern Queue<float> time_data;     
 
 /// @brief Data_state
 extern Share<uint8_t> data_state;

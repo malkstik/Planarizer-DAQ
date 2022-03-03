@@ -1,8 +1,8 @@
-/** @file BluetoothTask.cpp
- *  This class is responsible for reading the encoder and sending the data in a queue to @c SerialTask.cpp
+/** @file YawBluetoothTask.cpp
+ *  This task is responsible for reading the encoder and sending the data in a queue to @c YawSerialTask.cpp
  *  
  *  Source code available here:
- *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/BluetoothTask.cpp
+ *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/Yaw_MCU/YawBluetoothTask.cpp
  *  @author  Aaron Tran
  *  @date    2022-Feb-28 Original file
  */
@@ -12,7 +12,7 @@
 #if (defined STM32L4xx || defined STM32F4xx)
     #include <STM32FreeRTOS.h>
 #endif
-#include "shares.h"
+#include "Yawshares.h"
 #include "SoftwareSerial.h"
 
 #define Rx1 PA10
@@ -52,6 +52,8 @@ void task_bluetooth(void* p_params)
 
     ///@brief State of task_serial finite state machine
     uint8_t state = 0;
+    ///@brief Incoming byte from serial communication
+    uint8_t incoming = 0;
     ///@brief Incoming line from serial communication
     char *str;
     ///@brief Array of str after being separated using @c strtok()
@@ -69,11 +71,11 @@ void task_bluetooth(void* p_params)
             {
                 if (Serial.available() > 0)
                 {
-                    str = receiveLine(Serial.read());
+                    incoming = Serial.read();
                     //Serial.println(incoming, DEC);
                 }
                 //Serial << "I saw this:" << (char)incoming << endl;
-                if ((char)str == 'g')
+                if ((char)incoming == 'g')
                 {
                     data_state.put(1);
                     MyBlue.write('g');

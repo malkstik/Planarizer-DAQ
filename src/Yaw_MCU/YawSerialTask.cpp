@@ -1,8 +1,8 @@
-/** @file SerialTask.cpp
- *  Sends data over serial communication to frontend
+/** @file YawSerialTask.cpp
+ *  Sends data over serial communication to frontend, @c PlanarizerDAQFrontEnd.mlx
  *  
  *  Source code available here:
- *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/SerialTask.cpp
+ *  @c https://github.com/malkstik/Planarizer-DAQ/blob/main/src/Yaw_MCU/YawSerialTask.cpp
  *  @author  Aaron Tran
  *  @date    2022-Jan-18 Original file
  */
@@ -12,8 +12,8 @@
 #if (defined STM32L4xx || defined STM32F4xx)
     #include <STM32FreeRTOS.h>
 #endif
-#include "SerialTask.h"
-#include "shares.h"
+#include "YawSerialTask.h"
+#include "Yawshares.h"
 #include "SoftwareSerial.h"
 
 #define Rx1 PA10
