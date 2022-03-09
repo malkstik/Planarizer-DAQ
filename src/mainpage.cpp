@@ -13,4 +13,13 @@
  * For more information, refer to the following links \n
  *     - GitHub:                   https://github.com/malkstik/Planarizer-DAQ
  *     - Senior Project Report:    
+ * 
+ * \section yaw_task_dia Task Diagram 
+ * 
+ * 
+ * 
+ * \section st_dia State Transition Diagram
+ * 
+ * While each task can be considered to be running as its own finite state machine, each is synchronized to be in the same overall state. Accordingly, one 
+ * state transition diagram is adequate to describe each task.
  */

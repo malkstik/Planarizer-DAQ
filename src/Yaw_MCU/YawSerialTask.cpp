@@ -27,26 +27,34 @@ void task_serial(void* p_params)
     uint8_t state = 0;
     ///@brief Incoming byte from serial communication
     uint8_t incoming = 0;
-    ///@brief UART pins for bluetooth
-    SoftwareSerial MyBlue(Rx1, Tx1); // RX | TX 
-    
-    MyBlue.begin(9600);
+    ///@brief Delay value
+    uint8_t delay_val = 0;     
+
     Serial.begin (115200);
     
     for(;;)
         {
             data_state.get(state);
-            if(state==0)
+            if (state ==0)
             {
-                //pass
-            }
+                delay_val = 50; //Don't call this task during bluetooth callibration
+            }            
             else if(state==1)
             {
+                delay_val = 50; //No need to call this task as much when waiting for 'begin' signal from frontend
+            }
+            else if(state==2) //Send data to frontend
+            {
+                delay_val = 5;
                 Serial << "Pitch:"<< pitch.get() << endl;
                 Serial << "Yaw:" << yaw.get() << endl;  
-                Serial << "Time:" << yaw_time.get() << endl;
+                Serial << "Pitch_time:" << pitch_time.get() << endl;
+                Serial << "Yaw_time" << yaw_time.get() << endl;
+                Serial << "Pitch_crc" << pitch_crc.get() << endl;
+                Serial << "Yaw_crc" << yaw_crc.get() << endl;
             }
-            vTaskDelay(5);
+            Serial << "state:" << state << endl;
+            vTaskDelay(delay_val);
 
         }
 

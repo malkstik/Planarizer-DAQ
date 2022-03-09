@@ -26,6 +26,10 @@ extern Queue<float> pitch;
 /// @brief Time data
 extern Queue<float> time_data;     
 
+/// @brief Checksum
+extern Queue<float> crc;
+
 /// @brief Data_state
 extern Share<uint8_t> data_state;
+
 #endif // _SHARES_H_

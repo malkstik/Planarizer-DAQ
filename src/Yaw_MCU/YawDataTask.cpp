@@ -32,6 +32,8 @@ void task_data(void* p_params)
     unsigned long first_time = 0;  
     ///@brief Time of each data collection
     unsigned long time = 0;
+    ///@brief Delay value
+    uint8_t delay_val = 0;    
     ///@brief Yaw encoder data
     float yaw_pos = 0;
 
@@ -42,24 +44,31 @@ void task_data(void* p_params)
     {
         Serial.begin(115200);
         data_state.get(state);
-        if(state==0)
+        if (state==0) 
         {
-            first_time = millis();
-        }
+            delay_val = 50; //Don't call this task during bluetooth callibration
+        }        
         else if(state==1)
         {
+            delay_val = 5;
+            first_time = micros();
+        }
+        else if(state==2)
+        {
+            delay_val = 5;
             //For testing Serial Comm w/o encoder
             /*
             yaw_pos = 360/40000*yawENC.update();
             //pitch_pos = 360/40000*pitchENC.update();
             */
-            time = millis() - first_time;
+            time = micros() - first_time;
             yaw_pos = cos(time);
 
             yaw.put(yaw_pos);
             yaw_time.put(time);
+            yaw_crc.put(time + yaw_pos);
         }
-        vTaskDelay(250);
+        vTaskDelay(delay_val);
     }
 
 }

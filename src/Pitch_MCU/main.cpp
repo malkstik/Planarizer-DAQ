@@ -26,11 +26,12 @@ Queue<float> pitch(50, "pitch");
 /// @brief Pitch data
 Queue<float> time_data(50, "pitch");      
 
+/// @brief Checksum
+Queue<float> crc(50, "crc");   
+
 /// @brief Data_state
 Share<uint8_t> data_state("state");
 
-/// @brief Handle for bluetooth task
-TaskHandle_t xBluetooth;
 
 
 void setup () 
@@ -46,14 +47,14 @@ void setup ()
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 2,                               // Priority
+                 5,                               // Priority
                  NULL);
     xTaskCreate (task_bluetooth,
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 5,                               // Priority
-                 &xBluetooth);                 
+                 2,                               // Priority
+                 NULL);                 
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif

@@ -14,6 +14,7 @@
 #endif
 #include "Yawshares.h"
 #include "SoftwareSerial.h"
+#include <string>
 
 #define Rx1 PA10
 #define Tx1 PA9
@@ -58,6 +59,16 @@ void task_bluetooth(void* p_params)
     char *str;
     ///@brief Array of str after being separated using @c strtok()
     char *substr;
+    ///@brief String representing pitch
+    std::string pitch_str;
+    ///@brief String representing pitch_time
+    std::string pitchtime_str;
+    ///@brief String representing pitch_crc
+    std::string pitchcrc_str;        
+    ///@brief counter
+    uint8_t ct = 0;
+    ///@brief Callibration flag
+    uint8_t call = 0;
     ///@brief UART pins for bluetooth
     SoftwareSerial MyBlue(Rx1, Tx1); // RX | TX 
     
@@ -67,36 +78,75 @@ void task_bluetooth(void* p_params)
     for(;;)
         {
             data_state.get(state);
-            if(state==0)
+            if (state ==0)
             {
                 if (Serial.available() > 0)
                 {
                     incoming = Serial.read();
-                    //Serial.println(incoming, DEC);
                 }
-                //Serial << "I saw this:" << (char)incoming << endl;
-                if ((char)incoming == 'g')
+                if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
+                {
+                    call = 1;
+                    incoming = 0;
+                }    
+                if (ct <= 24 & call == 1) //send ping
+                {
+                    MyBlue << micros() << '\r'; //Send carriage return because receiveLine() uses it to detect the end of a line
+                }
+                if (MyBlue.available() > 0) //receive pings
+                {
+                    str = receiveLine(MyBlue.read());
+                    Serial << "RTT:" << str << ":" << millis() << endl; // RTT:initial_ping_time: return_ping_time  frontend uses ':' for string separation
+                    Serial << "Ct:" << ct << endl;
+                    ct+=1;
+                }
+                if (ct >= 24)
                 {
                     data_state.put(1);
+                    call = 0;
+                }
+            }
+            if(state==1)
+            {
+                if (Serial.available() > 0)
+                {
+                    incoming = Serial.read();
+                }
+                if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
+                {
+                    data_state.put(2);
                     MyBlue.write('g');
-                }            }
-            else if(state==1)
+                    incoming = 0;
+                }         
+           }
+            else if(state==2) //Read 
             {
                 if (MyBlue.available()>0)
                 {
-                    str = receiveLine(MyBlue.read()); // Should receive pitch, pitch_time
+                    str = receiveLine(MyBlue.read()); // Should receive pitch, pitch_time, pitch_crc
                     if (str != NULL)
                     {
                         substr = strtok(str, ",");
-                        pitch.put(substr[0]);
-                        pitch_time.put(substr[1]);
-                    }
-                }
+                        if (substr[0] == 'g')
+                        {
+                            data_state.put(0);
+                        }
+                        else
+                        {
 
+                            pitch_str = substr[0]; 
+                            pitchtime_str = substr[1];
+                            pitchcrc_str = substr[2];
+                            pitch.put(std::stof(pitch_str));
+                            pitch_time.put(std::stof(pitchtime_str));
+                            pitch_crc.put(std::stof(pitchcrc_str));
+                        }
+                        
+                    }
+
+                }
 
             }
             vTaskDelay(5);
-
         }
-
 }

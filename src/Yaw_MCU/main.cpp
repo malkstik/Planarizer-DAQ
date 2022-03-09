@@ -32,6 +32,12 @@ Queue<float> pitch_time(50, "pitch_time");
 /// @brief Pitch data
 Queue<float> yaw_time(50, "yaw_time");      
 
+/// @brief Pitch checksum
+Queue<float> pitch_crc(50, "pitch checksum");
+
+/// @brief Yaw checksum
+Queue<float> yaw_crc(50, "yaw checksum");
+
 /// @brief Data_state
 Share<uint8_t> data_state("state");
 
@@ -49,7 +55,7 @@ void setup ()
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 3,                               // Priority
+                 5,                               // Priority
                  NULL);
     xTaskCreate (task_serial,
                  "data",
