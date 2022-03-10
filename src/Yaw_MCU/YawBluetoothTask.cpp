@@ -75,7 +75,7 @@ void task_bluetooth(void* p_params)
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
 
-    MyBlue.begin(38400);
+    MyBlue.begin(230400);
     Serial.begin(115200);
     
     Serial << "YawBluetoothTask initialized" << endl;
@@ -83,7 +83,9 @@ void task_bluetooth(void* p_params)
     for(;;)
         {
             //data_state.get(state);
-            state =2;
+            state =1;
+            //Attempt to write a round trip time callibration state. We are instead going to use oscilloscopes to measure a one time callibration for the system
+            /*
             if (state ==0)
             {
                 delay_val = 25;
@@ -117,8 +119,10 @@ void task_bluetooth(void* p_params)
                     data_state.put(1);
                     call = 0;
                 }
+                
             }
-            else if(state==1)
+            */
+            if(state==0)
             {
                 Serial << "I do stuff too!" << endl;
                 delay_val = 5;
@@ -129,12 +133,12 @@ void task_bluetooth(void* p_params)
                 }
                 if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
                 {
-                    data_state.put(2);
+                    data_state.put(1);
                     MyBlue.write('g');
                     incoming = 0;
                 }     
             }
-            else if(state==2) //Read 
+            else if(state==1) //Read 
             {
                 delay_val = 100;
                 if (MyBlue.available()>0)
@@ -154,9 +158,11 @@ void task_bluetooth(void* p_params)
                         }
                         else
                         {
+                            Serial << "Pitch:" << str << endl;
                             //Responsible for breaking down data into tokens and putting them in the queues ,
                             //will freeze DAQ if bad data is received like : -0��������������������������������������
                             //Working on some filtering to deal with this would be desirable for improvements in the future
+                            /*
                             try
                             {
                                 pitch_str = substr;
@@ -168,12 +174,11 @@ void task_bluetooth(void* p_params)
                                 pitch_time.put(std::stof(pitchtime_str));
                                 pitch_crc.put(std::stof(pitchcrc_str));
                             }
-
-                            catch ()
+                            catch (...)
                             {
-
+                                Serial << "An error occurred" << endl;
                             }
-
+                            */
                             
                         }
                         
@@ -181,6 +186,6 @@ void task_bluetooth(void* p_params)
 
                 }
             }
-            vTaskDelay(50);
+            vTaskDelay(5);
         }
 }

@@ -34,24 +34,30 @@ void task_serial(void* p_params)
     
     for(;;)
         {
-            data_state.get(state);
+            //data_state.get(state);
+            state =1;
+            /*
             if (state ==0)
             {
                 delay_val = 50; //Don't call this task during bluetooth callibration
-            }            
-            else if(state==1)
+            } 
+            */           
+            if(state==0)
             {
                 delay_val = 50; //No need to call this task as much when waiting for 'begin' signal from frontend
             }
-            else if(state==2) //Send data to frontend
+            else if(state==1) //Send data to frontend
             {
                 delay_val = 5;
                 //Serial << "Pitch:"<< pitch.get() << endl;
-                Serial << "Yaw:" << yaw.get() << endl;  
+                //Serial << "Yaw:"<< yaw.get() << endl;
                 //Serial << "Pitch_time:" << pitch_time.get() << endl;
-                Serial << "Yaw_time" << yaw_time.get() << endl;
+                //Serial << "Yaw_time" << yaw_time.get() << endl;
                 //Serial << "Pitch_crc" << pitch_crc.get() << endl;
-                Serial << "Yaw_crc" << yaw_crc.get() << endl;
+                //Serial << "Yaw_crc" << yaw_crc.get() << endl;
+
+                Serial << "Yaw:" << yaw.get() << ":" << yaw_time.get() << ":" << yaw_crc.get() <<endl;  
+
             }
             Serial << "state:" << state << endl;
             vTaskDelay(delay_val);
