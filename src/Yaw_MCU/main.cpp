@@ -61,13 +61,13 @@ void setup ()
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 2,                               // Priority
+                 4,                               // Priority
                  NULL);
     xTaskCreate (task_bluetooth,
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 2,                               // Priority
+                 3,                               // Priority
                  NULL);                                      
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();

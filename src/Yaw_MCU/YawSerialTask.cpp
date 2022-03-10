@@ -46,11 +46,11 @@ void task_serial(void* p_params)
             else if(state==2) //Send data to frontend
             {
                 delay_val = 5;
-                Serial << "Pitch:"<< pitch.get() << endl;
+                //Serial << "Pitch:"<< pitch.get() << endl;
                 Serial << "Yaw:" << yaw.get() << endl;  
-                Serial << "Pitch_time:" << pitch_time.get() << endl;
+                //Serial << "Pitch_time:" << pitch_time.get() << endl;
                 Serial << "Yaw_time" << yaw_time.get() << endl;
-                Serial << "Pitch_crc" << pitch_crc.get() << endl;
+                //Serial << "Pitch_crc" << pitch_crc.get() << endl;
                 Serial << "Yaw_crc" << yaw_crc.get() << endl;
             }
             Serial << "state:" << state << endl;

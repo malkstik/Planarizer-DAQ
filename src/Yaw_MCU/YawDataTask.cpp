@@ -56,11 +56,7 @@ void task_data(void* p_params)
         else if(state==2)
         {
             delay_val = 5;
-            //For testing Serial Comm w/o encoder
-            /*
-            yaw_pos = 360/40000*yawENC.update();
-            //pitch_pos = 360/40000*pitchENC.update();
-            */
+            //yaw_pos = 360/40000*yawENC.update();            //For testing Serial Comm w/o encoder
             time = micros() - first_time;
             yaw_pos = cos(time);
 
