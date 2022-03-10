@@ -32,4 +32,7 @@ extern Queue<float> crc;
 /// @brief Data_state
 extern Share<uint8_t> data_state;
 
+/// @brief Data_state
+extern Share<unsigned long> first_time;
+
 #endif // _SHARES_H_

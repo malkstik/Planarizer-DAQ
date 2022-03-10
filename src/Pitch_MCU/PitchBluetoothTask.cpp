@@ -13,7 +13,6 @@
     #include <STM32FreeRTOS.h>
 #endif
 #include "Pitchshares.h"
-#include "SoftwareSerial.h"
 #include "PitchBluetoothTask.h"
 
 #define Rx1 PA10
@@ -52,38 +51,48 @@ void task_bluetooth(void* p_params)
     (void) p_params;
 
     ///@brief State of task_serial finite state machine
-    uint8_t state = 0;
+    uint8_t state = 1;
     ///@brief Incoming byte from serial communication
     uint8_t incoming = 0;
     ///@brief Delay value
-    uint8_t delay_val = 0;
+    uint16_t delay_val = 0;
     ///@brief Incoming line from serial communication
     char *str;
-    ///@brief Array of str after being separated using @c strtok()
-    char *substr;
+    ///@brief Time of each data collection
+    unsigned long time = 0;
+    ///@brief Pitch encoder data
+    float pitch_pos = 0;
+    ///@brief checksum
+    float crc_now = 0;
     ///@brief Counter
-    uint8_t ct = 0;
+    uint8_t ct = 0;      
     ///@brief UART pins for bluetooth
-    SoftwareSerial MyBlue(Rx1, Tx1); // RX | TX 
-    MyBlue.begin(9600);
-    
+    HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
+    Serial.begin(115200);
+    MyBlue.begin(38400);
+    Serial << "PitchBluetoothTask initialized" << endl;
     for(;;)
         {
             data_state.get(state);
             if (state ==0) //Determining round trip time 
             {
-                delay_val = 1;
+                delay_val = 10;
                 if (MyBlue.available() > 0)
                 {
+                    Serial << "I got something!" << endl;
                     str = receiveLine(MyBlue.read());
-                    MyBlue << str << '\r';
-                    ct+=1;
+                    if (str!=NULL)
+                    {
+                        MyBlue << str << '\r';
+                        ct+=1;
+                        Serial << "I saw this: " << str << endl;
+                    }
+
                 }
                 if (ct >= 24)
                 {
                     data_state.put(1);
                 }
-
             }
             else if(state==1) //Wait to begin data collection
             {
@@ -91,16 +100,20 @@ void task_bluetooth(void* p_params)
                 if (MyBlue.available() > 0)
                 {
                     incoming = MyBlue.read();
+                    Serial << "got this:" << incoming << endl;
                 }
                 if ((char)incoming == 'g') //If 'g' is received, change states to begin data collection
                 {
+                    first_time.put(millis());
                     data_state.put(2);
                 }           
             }
             else if(state==2) //Send data to Yaw MCU
             {
-                delay_val = 5;
-                Serial <<  pitch.get() << ',' << time_data.get() << ',' << crc.get() << endl;
+                delay_val = 1000;
+                pitch_pos = pitch.get(); time = time_data.get(); crc_now = crc.get();
+                Serial <<  pitch_pos << ',' << time << ',' << crc_now << endl;
+                MyBlue <<  pitch_pos << ',' << time << ',' << crc_now << '\r';
                 if (MyBlue.available() > 0)
                 {
                     incoming = MyBlue.read();
@@ -108,10 +121,9 @@ void task_bluetooth(void* p_params)
                 if ((char)incoming == 'g') //If 'g' is received, change states to avoid unnecessarey data collection and wait for next test
                 {
                     data_state.put(0);
-                }           
-            vTaskDelay(delay_val);
+                }    
             }
-
+            vTaskDelay(delay_val);
         }
 
 }

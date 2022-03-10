@@ -27,9 +27,9 @@ void task_data(void* p_params)
 {
     (void) p_params;
     ///@brief State of task_data finite state machine
-    uint8_t state = 0;
+    uint8_t state = 1;
     ///@brief Start time of data collection
-    unsigned long first_time = 0;  
+    unsigned long ft = 0;  
     ///@brief Time of each data collection
     unsigned long time = 0;
     ///@brief Pitch encoder data
@@ -45,27 +45,31 @@ void task_data(void* p_params)
 
     // Drivers
     STM32Encoder pitchENC (TIM2, CHA, CHB);
-    data_state.put(0);
+    data_state.put(2);
+    Serial.begin(115200);
+    Serial << "PitchDataTask initialized" << endl;
+    first_time.put(0);
     for(;;)
     {
         Serial.begin(115200);
         data_state.get(state);
+        first_time.get(ft);
         if (state ==0) //Callibrating bluetooth connection
         {
-            delay_val = 50; //Don't call this task during bluetooth callibration
+            delay_val = 100; //Don't call this task during bluetooth callibration
         }        
         else if(state==1) //Waiting to start data collection
         {
-            delay_val = 1;
-            first_time = micros();
+            delay_val = 10;
         }
         else if(state==2) //Collect data
         {
+            delay_val = 50;
+
             //For testing Serial Comm w/o encoder
             pitch_pos = sin(time);
             //pitch_pos = 360/40000*pitchENC.update();
-            delay_val = 5;
-            time = micros() - first_time;
+            time = micros() - ft;
             
             crc_now = time + pitch_pos;
 
@@ -73,6 +77,7 @@ void task_data(void* p_params)
             time_data.put(time);
             crc.put(crc_now);
         }
+        Serial << "state:" << state << endl;
         vTaskDelay(delay_val);
     }
 
