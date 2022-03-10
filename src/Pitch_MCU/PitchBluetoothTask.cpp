@@ -69,11 +69,12 @@ void task_bluetooth(void* p_params)
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
     Serial.begin(115200);
-    MyBlue.begin(38400);
+    MyBlue.begin(230400);
     Serial << "PitchBluetoothTask initialized" << endl;
     for(;;)
         {
             data_state.get(state);
+            /*
             if (state ==0) //Determining round trip time 
             {
                 delay_val = 10;
@@ -94,7 +95,8 @@ void task_bluetooth(void* p_params)
                     data_state.put(1);
                 }
             }
-            else if(state==1) //Wait to begin data collection
+            */
+            if(state==0) //Wait to begin data collection
             {
                 delay_val = 1;
                 if (MyBlue.available() > 0)
@@ -105,15 +107,15 @@ void task_bluetooth(void* p_params)
                 if ((char)incoming == 'g') //If 'g' is received, change states to begin data collection
                 {
                     first_time.put(millis());
-                    data_state.put(2);
+                    data_state.put(1);
                 }           
             }
-            else if(state==2) //Send data to Yaw MCU
+            else if(state==1) //Send data to Yaw MCU
             {
-                delay_val = 1000;
+                delay_val = 500;
                 pitch_pos = pitch.get(); time = time_data.get(); crc_now = crc.get();
-                Serial <<  pitch_pos << ',' << time << ',' << crc_now << endl;
-                MyBlue <<  pitch_pos << ',' << time << ',' << crc_now << '\r';
+                Serial <<  pitch_pos << ':' << time << ':' << crc_now << endl;
+                MyBlue <<  pitch_pos << ':' << time << ':' << crc_now << '\r';
                 if (MyBlue.available() > 0)
                 {
                     incoming = MyBlue.read();

@@ -45,7 +45,7 @@ void task_data(void* p_params)
 
     // Drivers
     STM32Encoder pitchENC (TIM2, CHA, CHB);
-    data_state.put(2);
+    data_state.put(0);
     Serial.begin(115200);
     Serial << "PitchDataTask initialized" << endl;
     first_time.put(0);
@@ -54,15 +54,17 @@ void task_data(void* p_params)
         Serial.begin(115200);
         data_state.get(state);
         first_time.get(ft);
+        /*
         if (state ==0) //Callibrating bluetooth connection
         {
             delay_val = 100; //Don't call this task during bluetooth callibration
-        }        
-        else if(state==1) //Waiting to start data collection
+        } 
+        */       
+        if (state==0) //Waiting to start data collection
         {
             delay_val = 10;
         }
-        else if(state==2) //Collect data
+        else if(state==1) //Collect data
         {
             delay_val = 50;
 
