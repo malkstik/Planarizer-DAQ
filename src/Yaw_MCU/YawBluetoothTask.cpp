@@ -72,9 +72,10 @@ void task_bluetooth(void* p_params)
     ///@brief UART pins for bluetooth
     SoftwareSerial MyBlue(Rx1, Tx1); // RX | TX 
     
-    MyBlue.begin(9600);
+    MyBlue.begin(38400);
     Serial.begin(115200);
     
+    str = "Nothing received yet";
     for(;;)
         {
             data_state.get(state);
@@ -91,6 +92,7 @@ void task_bluetooth(void* p_params)
                 }    
                 if (ct <= 24 & call == 1) //send ping
                 {
+                    Serial << "sent something to slave" << endl;
                     MyBlue << micros() << '\r'; //Send carriage return because receiveLine() uses it to detect the end of a line
                 }
                 if (MyBlue.available() > 0) //receive pings
@@ -105,6 +107,7 @@ void task_bluetooth(void* p_params)
                     data_state.put(1);
                     call = 0;
                 }
+                Serial << str << endl;
             }
             if(state==1)
             {
