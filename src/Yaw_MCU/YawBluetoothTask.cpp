@@ -65,6 +65,8 @@ void task_bluetooth(void* p_params)
     uint8_t call = 0;
     ///@brief Delay value
     uint8_t delay_val = 50;      
+    ///@brief blocking flag
+    bool block = false;    
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
 
@@ -75,8 +77,7 @@ void task_bluetooth(void* p_params)
 
     for(;;)
         {
-            //data_state.get(state);
-            state =1;
+            data_state.get(state);
             if(state==0)
             {
                 Serial << "I do stuff too!" << endl;
@@ -99,16 +100,22 @@ void task_bluetooth(void* p_params)
             {
                 delay_val = 5;
                 if (MyBlue.available()>0)
-                {
+                { 
                     str = receiveLine(MyBlue.read()); // Should receive pitch, pitch_time, pitch_crc
-    
+                    
                     while (str == NULL) //Read the whole line instead of just a character
                     {
                         str = receiveLine(MyBlue.read());
-                        //Serial << "checking the line" << endl;
                     }
-                    if (str != NULL) //After the whole line has been read check if it was a signal to go back to state 0 or if it;s data
+                    block = true;
+                    while (block)
                     {
+                        blue_queue << "Pitch:" << str << endl; 
+                        block = false;
+                    }
+                    /*
+                    if (str != NULL) //After the whole line has been read check if it was a signal to go back to state 0 or if it;s data
+                    {                        
                         if (*str == 'r')
                         {
                             data_state.put(0);
@@ -119,9 +126,10 @@ void task_bluetooth(void* p_params)
                         else
                         {
                             Serial << "Pitch:" << str << endl; //send data to frontend
-                        }
+                        } 
                         
-                    }
+                        
+                    }*/
 
                 }
             }

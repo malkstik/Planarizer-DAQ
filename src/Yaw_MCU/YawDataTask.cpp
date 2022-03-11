@@ -36,10 +36,11 @@ void task_data(void* p_params)
     uint8_t delay_val = 0;    
     ///@brief Yaw encoder data
     float yaw_pos = 0;
+    ///@brief blocking flag
+    bool block = false;
 
     // Drivers
     STM32Encoder yawENC (TIM2, CHA, CHB);
-    data_state.put(1);
     for(;;)
     {
         Serial.begin(115200);
@@ -51,16 +52,17 @@ void task_data(void* p_params)
         }
         else if(state==1)
         {
-            delay_val = 5;
-            //yaw_pos = 360/40000*yawENC.update();           
-            
-            time = millis() - first_time;
-            yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
+            block = true;
+            //Make sure the whole thing gets in there
+            while (block)
+            {
+                delay_val = 5;            
+                time = millis() - first_time;
+                yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
+                blue_queue << "Yaw:" << yaw_pos << ":" << time << ":" << time + yaw_pos <<endl;
+                block = false;
+            }
 
-            yaw.put(yaw_pos);
-            yaw_time.put(time);
-            yaw_crc.put(time + yaw_pos);
-            
         }
         vTaskDelay(delay_val);
     }

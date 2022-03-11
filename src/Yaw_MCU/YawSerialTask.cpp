@@ -34,7 +34,9 @@ void task_serial(void* p_params)
     ///@brief Time of each data collection
     unsigned long time = 0;    
     ///@brief Yaw checksum
-    float yawcrc = 0;      
+    float yawcrc = 0;   
+    ///@brief character to hold received data
+    char recv_ch = 0;  
 
     Serial.begin (115200);
     
@@ -48,15 +50,18 @@ void task_serial(void* p_params)
             else if(state==1) //Send data to frontend
             {
                 delay_val = 5;       
+                blue_queue.get(recv_ch);
+                Serial << recv_ch;
                 //retrieve data from queues         
-                yaw_pos = yaw.get();
-                time = yaw_time .get();
-                yawcrc = yaw_crc.get();
+                //yaw_pos = yaw.get();
+                //time = yaw_time .get();
+                //yawcrc = yaw_crc.get();
 
                 //send data to frontend
-                Serial << "Yaw:" << yaw_pos << ":" << time << ":" << yawcrc <<endl;  
+                //Serial << "Yaw:" << yaw_pos << ":" << time << ":" << yawcrc <<endl;
+                
             }
-            Serial << "state:" << state << endl;
+            //Serial << "state:" << state << endl;
             vTaskDelay(delay_val);
 
         }

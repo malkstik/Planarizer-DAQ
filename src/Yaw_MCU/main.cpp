@@ -14,6 +14,7 @@
 #include "taskshare.h"         // Header for inter-task shared data
 #include "taskqueue.h"         // Header for inter-task data queues
 #include "Yawshares.h"            // Header for shares used in this project
+#include "textqueue.h"
 
 #include "YawSerialTask.h"
 #include "YawDataTask.h"
@@ -22,21 +23,15 @@
 //Queue declarations
 /// @brief Yaw data
 Queue<float> yaw(50, "yaw");
-
-/// @brief Pitch data
-Queue<float> pitch(50, "pitch");      
-
-/// @brief Pitch data
-Queue<float> pitch_time(50, "pitch_time");      
-
-/// @brief Pitch data
+   
+/// @brief Yaw time
 Queue<float> yaw_time(50, "yaw_time");      
-
-/// @brief Pitch checksum
-Queue<float> pitch_crc(50, "pitch checksum");
 
 /// @brief Yaw checksum
 Queue<float> yaw_crc(50, "yaw checksum");
+
+/// @brief Pitch data via bluetooth
+TextQueue blue_queue(127, "Pitch data via BT");
 
 /// @brief Data_state
 Share<uint8_t> data_state("state");
@@ -60,59 +55,25 @@ void setup ()
                  8,                               // Priority
                  NULL);
     xTaskCreate (task_serial,
-                 "data",
+                 "serial",
                  4096,                            // Stack size
                  NULL,
-                 4,                               // Priority
+                 1,                               // Priority
                  NULL);
     xTaskCreate (task_bluetooth,
-                 "data",
+                 "bluetooth",
                  4096,                            // Stack size
                  NULL,
-                 3,                               // Priority
+                 6,                               // Priority
                  NULL);                                      
-                 
+    
+    data_state.put(1);
+
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif
 }
 
-//Encoder Testing
-/*
-//Encoder Pins
-#define E1CHA PA0
-#define E1CHB PA1
-#include "EncoderDriver.h"
-void setup()
-{ 
-  //Test
-  Serial.begin (115200);
-  delay(5000);
-
-  //Setup encoders
-
-  Serial <<"Setting up encoder 1!" << endl;
-  STM32Encoder enc1 (TIM2, E1CHA, E1CHB);
-
-  enc1.zero();
-
-  float x_pos;
-
-  for(;;)
-  {
-  delay(2500);  
-  x_pos = -enc1.update()*1.571/4000;
-  Serial <<"Motor 1 Position:" << x_pos << "inches" << endl;
-
-  //Serial <<"Motor 1 Position:" << enc1.update()*360/4000 << "degrees" << endl;
-  //Serial <<"Motor 2 Position:" << enc2.update()*360/4000 << "degrees" << endl;
-  //Serial <<"Motor 1 delta:" << enc1.update() << "ticks" << endl;
-  //Serial <<"Motor 1 Position:" << enc1.delta << "ticks" << endl;
-  //Serial <<"Motor 2 delta:" << enc2.update() << "ticks" << endl;
-  //Serial <<"Motor 2 Position:" << enc2.delta << "ticks" << endl;
-  }
-}
-*/
 void loop() 
 {
 }
