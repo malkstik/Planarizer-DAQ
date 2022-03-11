@@ -29,7 +29,7 @@ extern Queue<float> yaw_time;
 extern Queue<float> yaw_crc;
 
 /// @brief Pitch data via bluetooth
-extern TextQueue blue_queue;
+extern TextQueue serial_queue;
 
 /// @brief Data_state
 extern Share<uint8_t> data_state;

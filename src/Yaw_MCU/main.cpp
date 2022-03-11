@@ -30,8 +30,8 @@ Queue<float> yaw_time(50, "yaw_time");
 /// @brief Yaw checksum
 Queue<float> yaw_crc(50, "yaw checksum");
 
-/// @brief Pitch data via bluetooth
-TextQueue blue_queue(127, "Pitch data via BT");
+/// @brief data to send through serial port
+TextQueue serial_queue(30000, "Pitch data via BT");
 
 /// @brief Data_state
 Share<uint8_t> data_state("state");
@@ -40,13 +40,8 @@ void setup ()
 {
     // Start the serial port, wait a short time, then say hello. Use the
     // non-RTOS delay() function because the RTOS hasn't been started yet
-    Serial.begin (115200);
-    delay (2000);
-    Serial << endl << endl << "Initializing Mechatronic Zen Garden" << endl;
 
-    // Create a task which sends design data
-    // This task would also collect data and write it to a CSV file upon further development 
-
+    serial_queue << endl << endl << "Initializing Planarizer DAQ" << endl;
     
     xTaskCreate (task_data,
                  "data",
@@ -67,7 +62,7 @@ void setup ()
                  6,                               // Priority
                  NULL);                                      
     
-    data_state.put(1);
+    data_state.put(0); //Populate share to avoid blocking, may also be used for debugging specific states
 
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();

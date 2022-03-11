@@ -49,17 +49,12 @@ void task_serial(void* p_params)
             }
             else if(state==1) //Send data to frontend
             {
-                delay_val = 5;       
-                blue_queue.get(recv_ch);
-                Serial << recv_ch;
-                //retrieve data from queues         
-                //yaw_pos = yaw.get();
-                //time = yaw_time .get();
-                //yawcrc = yaw_crc.get();
-
-                //send data to frontend
-                //Serial << "Yaw:" << yaw_pos << ":" << time << ":" << yawcrc <<endl;
-                
+                delay_val = 1;
+                for(uint8_t char_ct=0; char_ct<30;char_ct++)
+                {
+                    serial_queue.get(recv_ch);
+                    Serial << recv_ch;
+                }                       
             }
             //Serial << "state:" << state << endl;
             vTaskDelay(delay_val);
