@@ -70,7 +70,6 @@ void task_bluetooth(void* p_params)
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
     Serial.begin(115200);
     MyBlue.begin(230400);
-    Serial << "PitchBluetoothTask initialized" << endl;
     for(;;)
         {
             data_state.get(state);
@@ -102,13 +101,16 @@ void task_bluetooth(void* p_params)
                 if (MyBlue.available() > 0)
                 {
                     incoming = MyBlue.read();
-                    Serial << "got this:" << incoming << endl;
                 }
                 if ((char)incoming == 'g') //If 'g' is received, change states to begin data collection
                 {
                     first_time.put(millis());
                     data_state.put(1);
                 }           
+                else if ((char)incoming == 'p')
+                {
+                    data_state.put(2);
+                } 
             }
             else if(state==1) //Send data to Yaw MCU
             {
@@ -120,10 +122,28 @@ void task_bluetooth(void* p_params)
                 {
                     incoming = MyBlue.read();
                 }
-                if ((char)incoming == 'r') //If 'g' is received, change states to avoid unnecessarey data collection and wait for next test
+                if ((char)incoming == 'r') //If 'r' is received, change states to avoid unnecessarey data collection and wait for next test
                 {
                     data_state.put(0);
                 }    
+            }
+            else if(state ==2)
+            {
+                delay_val = 1; //run at same speed as state 0 to better simulate circumstance
+                if (MyBlue.available()>0)
+                {
+                    incoming = MyBlue.read(); //read the data to get it out of the buffer
+                    
+                    MyBlue << "i"; //send something back so we can get an rx reading on the other side
+                }
+                if (Serial.available()>0)
+                {
+                    incoming = Serial.read();
+                }
+                if (char(incoming) == 's')
+                {
+                    data_state.put(0);
+                }
             }
             vTaskDelay(delay_val);
         }
