@@ -39,30 +39,21 @@ void task_data(void* p_params)
 
     // Drivers
     STM32Encoder yawENC (TIM2, CHA, CHB);
-    data_state.put(0);
     for(;;)
     {
-        Serial.begin(115200);
         data_state.get(state);
-        if (state==0) 
+        if(state==0)
         {
-            delay_val = 50; //Don't call this task during bluetooth callibration
-        }        
+            delay_val = 5;
+            first_time = millis();
+        }
         else if(state==1)
         {
-            delay_val = 5;
-            first_time = micros();
-        }
-        else if(state==2)
-        {
-            delay_val = 5;
-            //yaw_pos = 360/40000*yawENC.update();            //For testing Serial Comm w/o encoder
-            time = micros() - first_time;
-            yaw_pos = cos(time);
-
-            yaw.put(yaw_pos);
-            yaw_time.put(time);
-            yaw_crc.put(time + yaw_pos);
+            //Make sure the whole thing gets in there
+            delay_val = 50;            
+            time = millis() - first_time;
+            yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
+            serial_queue << "Yaw:" << yaw_pos << ":" << time << ":" << time + yaw_pos <<endl;
         }
         vTaskDelay(delay_val);
     }
