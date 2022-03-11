@@ -28,36 +28,33 @@ void task_serial(void* p_params)
     ///@brief Incoming byte from serial communication
     uint8_t incoming = 0;
     ///@brief Delay value
-    uint8_t delay_val = 0;     
+    uint8_t delay_val = 50;     
+    ///@brief Yaw encoder data
+    float yaw_pos = 0;    
+    ///@brief Time of each data collection
+    unsigned long time = 0;    
+    ///@brief Yaw checksum
+    float yawcrc = 0;      
 
     Serial.begin (115200);
     
     for(;;)
         {
-            //data_state.get(state);
-            state =1;
-            /*
-            if (state ==0)
-            {
-                delay_val = 50; //Don't call this task during bluetooth callibration
-            } 
-            */           
+            data_state.get(state);         
             if(state==0)
             {
                 delay_val = 50; //No need to call this task as much when waiting for 'begin' signal from frontend
             }
             else if(state==1) //Send data to frontend
             {
-                delay_val = 5;
-                //Serial << "Pitch:"<< pitch.get() << endl;
-                //Serial << "Yaw:"<< yaw.get() << endl;
-                //Serial << "Pitch_time:" << pitch_time.get() << endl;
-                //Serial << "Yaw_time" << yaw_time.get() << endl;
-                //Serial << "Pitch_crc" << pitch_crc.get() << endl;
-                //Serial << "Yaw_crc" << yaw_crc.get() << endl;
+                delay_val = 5;       
+                //retrieve data from queues         
+                yaw_pos = yaw.get();
+                time = yaw_time .get();
+                yawcrc = yaw_crc.get();
 
-                Serial << "Yaw:" << yaw.get() << ":" << yaw_time.get() << ":" << yaw_crc.get() <<endl;  
-
+                //send data to frontend
+                Serial << "Yaw:" << yaw_pos << ":" << time << ":" << yawcrc <<endl;  
             }
             Serial << "state:" << state << endl;
             vTaskDelay(delay_val);

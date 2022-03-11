@@ -59,13 +59,6 @@ void task_bluetooth(void* p_params)
     ///@brief Array of str after being separated using @c strtok()
     char *substr;
     
-    ///@brief String representing pitch
-    std::string pitch_str;
-    ///@brief String representing pitch_time
-    std::string pitchtime_str;
-    ///@brief String representing pitch_crc
-    std::string pitchcrc_str;        
-    
     ///@brief counter
     uint8_t ct = 0;
     ///@brief Callibration flag
@@ -84,44 +77,6 @@ void task_bluetooth(void* p_params)
         {
             //data_state.get(state);
             state =1;
-            //Attempt to write a round trip time callibration state. We are instead going to use oscilloscopes to measure a one time callibration for the system
-            /*
-            if (state ==0)
-            {
-                delay_val = 25;
-                if (Serial.available() > 0)
-                {
-                    incoming = Serial.read();
-                }
-                if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
-                {
-                    call = 1;
-                    incoming = 0;
-                }    
-                if (ct <= 24 & call == 1) //send ping
-                {
-                    Serial << "sent something to slave" << endl;
-                    MyBlue << micros() << endl; //Send carriage return because receiveLine() uses it to detect the end of a line
-                }
-                if (MyBlue.available() > 0) //receive pings
-                {
-                    str = receiveLine(MyBlue.read());
-                    if (str!=NULL)
-                    {
-                        Serial << "RTT:" << str << ":" << millis() << endl; // RTT:initial_ping_time: return_ping_time  frontend uses ':' for string separation
-                        Serial << "Ct:" << ct << endl;
-                        ct+=1;
-                    }
-
-                }
-                if (ct >= 24)
-                {
-                    data_state.put(1);
-                    call = 0;
-                }
-                
-            }
-            */
             if(state==0)
             {
                 Serial << "I do stuff too!" << endl;
@@ -134,58 +89,42 @@ void task_bluetooth(void* p_params)
                 if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
                 {
                     data_state.put(1);
+                    MyBlue.write('g'); //Hopefully one of these goes through
+                    MyBlue.write('g');
                     MyBlue.write('g');
                     incoming = 0;
                 }     
             }
             else if(state==1) //Read 
             {
-                delay_val = 100;
+                delay_val = 5;
                 if (MyBlue.available()>0)
                 {
                     str = receiveLine(MyBlue.read()); // Should receive pitch, pitch_time, pitch_crc
-                    while (str == NULL)
+    
+                    while (str == NULL) //Read the whole line instead of just a character
                     {
                         str = receiveLine(MyBlue.read());
+                        //Serial << "checking the line" << endl;
                     }
-                    if (str != NULL)
+                    if (str != NULL) //After the whole line has been read check if it was a signal to go back to state 0 or if it;s data
                     {
-                        Serial << str << endl;
-                        substr = strtok(str, ",");
-                        if (*substr == 'g')
+                        if (*str == 'r')
                         {
                             data_state.put(0);
+                            MyBlue << 'r' << endl; //send 'r' multiple times in case if pitch MCU misses one
+                            MyBlue << 'r' << endl;
+                            MyBlue << 'r' << endl;
                         }
                         else
                         {
-                            Serial << "Pitch:" << str << endl;
-                            //Responsible for breaking down data into tokens and putting them in the queues ,
-                            //will freeze DAQ if bad data is received like : -0��������������������������������������
-                            //Working on some filtering to deal with this would be desirable for improvements in the future
-                            /*
-                            try
-                            {
-                                pitch_str = substr;
-                                substr = strtok(NULL, ","); 
-                                pitchtime_str = substr;
-                                substr = strtok(NULL, ","); 
-                                pitchcrc_str = substr;
-                                pitch.put(std::stof(pitch_str));
-                                pitch_time.put(std::stof(pitchtime_str));
-                                pitch_crc.put(std::stof(pitchcrc_str));
-                            }
-                            catch (...)
-                            {
-                                Serial << "An error occurred" << endl;
-                            }
-                            */
-                            
+                            Serial << "Pitch:" << str << endl; //send data to frontend
                         }
                         
                     }
 
                 }
             }
-            vTaskDelay(5);
+            vTaskDelay(delay_val);
         }
 }
