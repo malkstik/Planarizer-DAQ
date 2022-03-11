@@ -55,6 +55,10 @@ void task_data(void* p_params)
             yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
             serial_queue << "Yaw:" << yaw_pos << ":" << time << ":" << time + yaw_pos <<endl;
         }
+        else if(state ==2)
+        {
+            delay_val = 50; //No need to call this task as much when doing ping tests               
+        }              
         vTaskDelay(delay_val);
     }
 

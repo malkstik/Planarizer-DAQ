@@ -56,9 +56,11 @@ void task_serial(void* p_params)
                     Serial << recv_ch;
                 }                       
             }
-            //Serial << "state:" << state << endl;
+            else if(state ==2)
+            {
+                delay_val = 50; //No need to call this task as much when doing ping tests               
+            }            
             vTaskDelay(delay_val);
-
         }
 
 }

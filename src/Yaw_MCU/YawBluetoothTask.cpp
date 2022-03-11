@@ -87,7 +87,14 @@ void task_bluetooth(void* p_params)
                     MyBlue.write('g');
                     MyBlue.write('g');
                     incoming = 0;
-                }     
+                }
+                else if ((char)incoming == 'p')
+                {
+                    data_state.put(2);
+                    MyBlue.write('p'); //Hopefully one of these goes through
+                    MyBlue.write('p');
+                    MyBlue.write('p');                    
+                }
             }
             else if(state==1) //Read 
             {
@@ -101,8 +108,6 @@ void task_bluetooth(void* p_params)
                         str = receiveLine(MyBlue.read());
                     }
                     serial_queue << "Pitch:" << str << endl; 
-
-
                 }
                 if (Serial.available() > 0)
                 {
@@ -115,6 +120,33 @@ void task_bluetooth(void* p_params)
                     MyBlue.write('r');
                     MyBlue.write('r');                                
                 }
+            }
+            else if(state ==2)
+            {   
+                delay_val = 100;
+                unsigned long ping_time = millis();
+                //send 'i' as ping once every second
+                if (millis()-ping_time > 1000)
+                {
+                    MyBlue << 'i'; 
+                    ping_time = millis();
+                }
+                if (MyBlue.available()>0)
+                {
+                    incoming = MyBlue.read(); //read the data to get it out of the buffer
+                }
+                if (Serial.available() > 0)
+                {
+                    incoming = Serial.read();
+                }
+                if (char(incoming) == 's')
+                {
+                    data_state.put(0);
+                    MyBlue.write('s'); //Hopefully one of these goes through
+                    MyBlue.write('s');
+                    MyBlue.write('s');  
+                }
+
             }
             vTaskDelay(delay_val);
         }
