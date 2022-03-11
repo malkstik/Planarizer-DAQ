@@ -45,10 +45,8 @@ void task_data(void* p_params)
 
     // Drivers
     STM32Encoder pitchENC (TIM2, CHA, CHB);
-    data_state.put(0);
     Serial.begin(115200);
     Serial << "PitchDataTask initialized" << endl;
-    first_time.put(0);
     for(;;)
     {
         Serial.begin(115200);
@@ -71,7 +69,7 @@ void task_data(void* p_params)
             //For testing Serial Comm w/o encoder
             pitch_pos = sin(time);
             //pitch_pos = 360/40000*pitchENC.update();
-            time = micros() - ft;
+            time = millis() - ft;
             
             crc_now = time + pitch_pos;
 

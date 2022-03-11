@@ -112,7 +112,7 @@ void task_bluetooth(void* p_params)
             }
             else if(state==1) //Send data to Yaw MCU
             {
-                delay_val = 500;
+                delay_val = 20;
                 pitch_pos = pitch.get(); time = time_data.get(); crc_now = crc.get();
                 Serial <<  pitch_pos << ':' << time << ':' << crc_now << endl;
                 MyBlue <<  pitch_pos << ':' << time << ':' << crc_now << '\r';
@@ -120,7 +120,7 @@ void task_bluetooth(void* p_params)
                 {
                     incoming = MyBlue.read();
                 }
-                if ((char)incoming == 'g') //If 'g' is received, change states to avoid unnecessarey data collection and wait for next test
+                if ((char)incoming == 'r') //If 'g' is received, change states to avoid unnecessarey data collection and wait for next test
                 {
                     data_state.put(0);
                 }    

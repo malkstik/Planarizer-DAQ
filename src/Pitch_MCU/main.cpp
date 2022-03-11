@@ -58,6 +58,10 @@ void setup ()
                  NULL,
                  2,                               // Priority
                  NULL);                 
+
+    data_state.put(0);
+    first_time.put(0);
+
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif
