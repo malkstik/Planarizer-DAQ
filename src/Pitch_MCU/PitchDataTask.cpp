@@ -42,6 +42,8 @@ void task_data(void* p_params)
     uint8_t incoming_pitch = 0;
     ///@brief checksum
     float crc_now = 0;
+    ///@brief convert from counts to degrees
+    float factor = (float)360/(float)40000;
 
     // Drivers
     STM32Encoder pitchENC (TIM2, CHA, CHB);
@@ -62,7 +64,7 @@ void task_data(void* p_params)
 
             //For testing Serial Comm w/o encoder
             //pitch_pos = sin(time);
-            pitch_pos = 360/40000*pitchENC.update();
+            pitch_pos = factor*pitchENC.update();
             time = millis() - ft;
             
             crc_now = time + pitch_pos;

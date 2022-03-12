@@ -36,6 +36,8 @@ void task_data(void* p_params)
     uint8_t delay_val = 0;    
     ///@brief Yaw encoder data
     float yaw_pos = 0;
+    ///@brief convert from counts to degrees
+    float factor = (float)360/(float)40000;    
 
     // Drivers
     STM32Encoder yawENC (TIM2, CHA, CHB);
@@ -53,7 +55,7 @@ void task_data(void* p_params)
             delay_val = 15;            
             time = millis() - first_time;
             //yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
-            yaw_pos = 360/40000*yawENC.update();
+            yaw_pos = factor*yawENC.update();
 
             serial_queue << "Yaw," << yaw_pos << "," << time << "," << time + yaw_pos <<endl;
         }
