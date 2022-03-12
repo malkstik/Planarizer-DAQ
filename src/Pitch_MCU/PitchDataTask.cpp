@@ -64,7 +64,7 @@ void task_data(void* p_params)
 
             //For testing Serial Comm w/o encoder
             //pitch_pos = sin(time);
-            pitch_pos = factor*pitchENC.update();
+            pitch_pos = -factor*pitchENC.update();
             time = millis() - ft;
             
             crc_now = time + pitch_pos;
