@@ -84,7 +84,7 @@ void task_bluetooth(void* p_params)
             data_state.get(state);
             if(state==0)
             {
-                delay_val = 5;
+                delay_val = 1;
                 if (Serial.available() > 0)
                 {
                     incoming = Serial.read();
@@ -106,7 +106,6 @@ void task_bluetooth(void* p_params)
                     MyBlue.write('p');        
                     ping_time = millis();   
                     incoming = 0;
-
                 }
                 if (match_flag)
                 {
@@ -120,7 +119,7 @@ void task_bluetooth(void* p_params)
             }
             else if(state==1) //Read 
             {
-                delay_val = 5;
+                delay_val = 15;
                 if (MyBlue.available()>0)
                 { 
                     str = receiveLine(MyBlue.read()); // Should receive pitch, pitch_time, pitch_crc
@@ -129,7 +128,7 @@ void task_bluetooth(void* p_params)
                     {
                         str = receiveLine(MyBlue.read());
                     }
-                    serial_queue << "Pitch:" << str << endl; 
+                    serial_queue << "Pitch," << str << endl; 
                 }
                 if (Serial.available() > 0)
                 {

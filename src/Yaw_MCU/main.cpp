@@ -50,8 +50,9 @@ void setup ()
                  "data",
                  4096,                            // Stack size
                  NULL,
-                 8,                               // Priority
+                 6,                               // Priority
                  NULL);
+    
     xTaskCreate (task_serial,
                  "serial",
                  4096,                            // Stack size
@@ -62,11 +63,11 @@ void setup ()
                  "bluetooth",
                  4096,                            // Stack size
                  NULL,
-                 6,                               // Priority
+                 8,                               // Priority
                  NULL);                                      
     
     data_state.put(0); //Populate share to avoid blocking, may also be used for debugging specific states
-
+    zero_time.put(millis()); //Populate share to avoid blocking during testing
     #if (defined STM32L4xx || defined STM32F4xx)
         vTaskStartScheduler ();
     #endif

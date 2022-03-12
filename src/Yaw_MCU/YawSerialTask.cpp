@@ -50,7 +50,7 @@ void task_serial(void* p_params)
             else if(state==1) //Send data to frontend
             {
                 delay_val = 1;
-                for(uint8_t char_ct=0; char_ct<30;char_ct++)
+                for(uint8_t char_ct=0; char_ct<35;char_ct++)
                 {
                     serial_queue.get(recv_ch);
                     Serial << recv_ch;
