@@ -1,4 +1,4 @@
-/** @file Yawhares.h
+/** @file Yawshares.h
  *  This file contains extern declarations of shares and queues which are used
  *  in more than one file of a demonstration project.
  * 
@@ -7,17 +7,12 @@
  *  @date   2022-Jan-18 Original file
  */
 
-#ifndef _SHARES_H_
-#define _SHARES_H_
+#ifndef _YAWSHARES_H_
+#define _YAWSHARES_H_
 
 #include "taskqueue.h"
 #include "taskshare.h"
 #include "textqueue.h"
-
-// A share which holds a counter of how many times a simulated event occurred
-// extern Share<bool> bool_var; example of share declaration
-
-// A queue which triggers a task to print the count at certain times
 
 /// @brief Yaw datopopla
 extern Queue<float> yaw;
@@ -34,5 +29,8 @@ extern TextQueue serial_queue;
 /// @brief Data_state
 extern Share<uint8_t> data_state;
 
+/// @brief 
+extern Share<unsigned long> zero_time;
 
-#endif // _SHARES_H_
+
+#endif // _YAWSHARES_H_

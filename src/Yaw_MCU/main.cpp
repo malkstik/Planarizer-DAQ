@@ -36,6 +36,9 @@ TextQueue serial_queue(30000, "Pitch data via BT");
 /// @brief Data_state
 Share<uint8_t> data_state("state");
 
+/// @brief Time that microcontroller begins data collection
+Share<unsigned long> zero_time("zero");
+
 void setup () 
 {
     // Start the serial port, wait a short time, then say hello. Use the
