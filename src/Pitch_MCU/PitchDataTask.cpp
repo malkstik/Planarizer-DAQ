@@ -58,7 +58,7 @@ void task_data(void* p_params)
         }
         else if(state==1) //Collect data
         {
-            delay_val = 50;
+            delay_val = 15;
 
             //For testing Serial Comm w/o encoder
             pitch_pos = sin(time);
@@ -75,7 +75,7 @@ void task_data(void* p_params)
         {
             delay_val = 50;
         }        
-        //Serial << "state:" << state << endl;
+        Serial << "state:" << state << endl;
         vTaskDelay(delay_val);
     }
 
