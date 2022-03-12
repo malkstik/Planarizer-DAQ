@@ -61,8 +61,8 @@ void task_data(void* p_params)
             delay_val = 15;
 
             //For testing Serial Comm w/o encoder
-            pitch_pos = sin(time);
-            //pitch_pos = 360/40000*pitchENC.update();
+            //pitch_pos = sin(time);
+            pitch_pos = 360/40000*pitchENC.update();
             time = millis() - ft;
             
             crc_now = time + pitch_pos;

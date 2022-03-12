@@ -52,8 +52,9 @@ void task_data(void* p_params)
             //Make sure the whole thing gets in there
             delay_val = 15;            
             time = millis() - first_time;
-            yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
-            
+            //yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
+            yaw_pos = 360/40000*yawENC.update();
+
             serial_queue << "Yaw," << yaw_pos << "," << time << "," << time + yaw_pos <<endl;
         }
         else if(state ==2)
