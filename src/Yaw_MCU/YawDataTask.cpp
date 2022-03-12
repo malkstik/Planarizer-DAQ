@@ -41,16 +41,16 @@ void task_data(void* p_params)
     STM32Encoder yawENC (TIM2, CHA, CHB);
     for(;;)
     {
+        zero_time.get(first_time);
         data_state.get(state);
         if(state==0)
         {
             delay_val = 5;
-            first_time = millis();
         }
         else if(state==1)
         {
             //Make sure the whole thing gets in there
-            delay_val = 50;            
+            delay_val = 15;            
             time = millis() - first_time;
             yaw_pos = cos(time);  //For testing Serial Comm w/o encoder
             serial_queue << "Yaw:" << yaw_pos << ":" << time << ":" << time + yaw_pos <<endl;

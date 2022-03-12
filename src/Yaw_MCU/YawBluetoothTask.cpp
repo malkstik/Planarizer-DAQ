@@ -68,6 +68,12 @@ void task_bluetooth(void* p_params)
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
 
+    ///@brief flag triggered when starting data collection
+    bool match_flag = false;
+    ///@brief used to match the time that microcontroller zero their timers
+    unsigned long match_time = millis();
+
+    ///@brief used to periodically send pings in ping test mode
     unsigned long ping_time = millis();
 
     Serial.begin(115200);
@@ -85,10 +91,11 @@ void task_bluetooth(void* p_params)
                 }
                 if ((char)incoming == 'g') //switch to data collection mode and tell Pitch MCU to switch to data collection mode
                 {
-                    data_state.put(1);
                     MyBlue.write('g'); //Hopefully one of these goes through
                     MyBlue.write('g');
                     MyBlue.write('g');
+                    match_time = millis();
+                    match_flag = true;
                     incoming = 0;
                 }
                 else if ((char)incoming == 'p')
@@ -97,7 +104,18 @@ void task_bluetooth(void* p_params)
                     MyBlue.write('p'); //Hopefully one of these goes through
                     MyBlue.write('p');
                     MyBlue.write('p');        
-                    ping_time = millis();            
+                    ping_time = millis();   
+                    incoming = 0;
+
+                }
+                if (match_flag)
+                {
+                    if (millis()-match_time >=6.9)
+                    {
+                        match_flag= false;
+                        zero_time.put(millis());
+                        data_state.put(1);
+                    }
                 }
             }
             else if(state==1) //Read 
@@ -156,5 +174,5 @@ void task_bluetooth(void* p_params)
 
             vTaskDelay(delay_val);
             
-        }
+         }
 }
