@@ -71,7 +71,11 @@ void task_data(void* p_params)
             time_data.put(time);
             crc.put(crc_now);
         }
-        Serial << "state:" << state << endl;
+        else if(state ==2)
+        {
+            delay_val = 50;
+        }        
+        //Serial << "state:" << state << endl;
         vTaskDelay(delay_val);
     }
 

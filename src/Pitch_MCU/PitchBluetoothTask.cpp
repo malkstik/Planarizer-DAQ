@@ -68,6 +68,10 @@ void task_bluetooth(void* p_params)
     uint8_t ct = 0;      
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
+
+    unsigned long ping_time = millis();
+
+
     Serial.begin(115200);
     MyBlue.begin(230400);
     for(;;)
@@ -110,6 +114,7 @@ void task_bluetooth(void* p_params)
                 else if ((char)incoming == 'p')
                 {
                     data_state.put(2);
+                    ping_time = millis();
                 } 
             }
             else if(state==1) //Send data to Yaw MCU
@@ -130,11 +135,18 @@ void task_bluetooth(void* p_params)
             else if(state ==2)
             {
                 delay_val = 1; //run at same speed as state 0 to better simulate circumstance
+                if (millis() - ping_time > 1000)
+                {
+                    ping_time = millis();
+                    Serial << "state:" << state << endl;                    
+                }
                 if (MyBlue.available()>0)
                 {
                     incoming = MyBlue.read(); //read the data to get it out of the buffer
                     
                     MyBlue << "i"; //send something back so we can get an rx reading on the other side
+
+                    Serial << (char)incoming << endl; //so we can check in PuTTy that we received something
                 }
                 if (Serial.available()>0)
                 {
@@ -144,6 +156,7 @@ void task_bluetooth(void* p_params)
                 {
                     data_state.put(0);
                 }
+
             }
             vTaskDelay(delay_val);
         }

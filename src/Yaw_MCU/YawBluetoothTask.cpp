@@ -68,6 +68,9 @@ void task_bluetooth(void* p_params)
     ///@brief UART pins for bluetooth
     HardwareSerial MyBlue(Rx1, Tx1); // RX | TX 
 
+    unsigned long ping_time = millis();
+
+    Serial.begin(115200);
     MyBlue.begin(230400);
     
     for(;;)
@@ -93,7 +96,8 @@ void task_bluetooth(void* p_params)
                     data_state.put(2);
                     MyBlue.write('p'); //Hopefully one of these goes through
                     MyBlue.write('p');
-                    MyBlue.write('p');                    
+                    MyBlue.write('p');        
+                    ping_time = millis();            
                 }
             }
             else if(state==1) //Read 
@@ -123,10 +127,9 @@ void task_bluetooth(void* p_params)
             }
             else if(state ==2)
             {   
-                delay_val = 100;
-                unsigned long ping_time = millis();
+                delay_val = 5;
                 //send 'i' as ping once every second
-                if (millis()-ping_time > 1000)
+                if (millis()-ping_time > 250)
                 {
                     MyBlue << 'i'; 
                     ping_time = millis();
@@ -134,6 +137,7 @@ void task_bluetooth(void* p_params)
                 if (MyBlue.available()>0)
                 {
                     incoming = MyBlue.read(); //read the data to get it out of the buffer
+                    Serial << "received ping back";
                 }
                 if (Serial.available() > 0)
                 {
@@ -148,6 +152,9 @@ void task_bluetooth(void* p_params)
                 }
 
             }
+            
+
             vTaskDelay(delay_val);
+            
         }
 }
