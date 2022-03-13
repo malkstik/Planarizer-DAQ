@@ -77,28 +77,6 @@ void task_bluetooth(void* p_params)
     for(;;)
         {
             data_state.get(state);
-            /*
-            if (state ==0) //Determining round trip time 
-            {
-                delay_val = 10;
-                if (MyBlue.available() > 0)
-                {
-                    Serial << "I got something!" << endl;
-                    str = receiveLine(MyBlue.read());
-                    if (str!=NULL)
-                    {
-                        MyBlue << str << '\r';
-                        ct+=1;
-                        Serial << "I saw this: " << str << endl;
-                    }
-
-                }
-                if (ct >= 24)
-                {
-                    data_state.put(1);
-                }
-            }
-            */
             if(state==0) //Wait to begin data collection
             {
                 delay_val = 1;

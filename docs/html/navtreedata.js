@@ -26,7 +26,11 @@ var NAVTREE =
 [
   [ "Planarizer DAQ", "index.html", [
     [ "Planarizer DAQ Documentation", "index.html", [
-      [ "Introduction", "index.html#intro_sec", null ]
+      [ "Introduction", "index.html#intro_sec", null ],
+      [ "Task Diagram", "index.html#yaw_task_dia", null ],
+      [ "State Transition Diagram", "index.html#st_dia", null ],
+      [ "Areas For Improvement in Software", "index.html#improvementSW", null ],
+      [ "Areas For Improvement in Hardware", "index.html#improvementHW", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -53,7 +57,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_data_task_8cpp.html"
+"_pitch___m_c_u_2_encoder_driver_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

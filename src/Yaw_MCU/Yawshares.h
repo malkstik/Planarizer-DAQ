@@ -2,7 +2,7 @@
  *  This file contains extern declarations of shares and queues which are used
  *  in more than one file of a demonstration project.
  * 
- *  Source code available here:
+ *  Source code available here: https://github.com/malkstik/Planarizer-DAQ/blob/main/src/Yaw_MCU/Yawshares.h
  *  @author Aaron Tran
  *  @date   2022-Jan-18 Original file
  */

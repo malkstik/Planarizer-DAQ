@@ -97,15 +97,21 @@ $(document).ready(function(){initNavTree('class_base_share.html',''); initResiza
 <p>Base class for classes that share data in a thread-safe manner between tasks.  
  <a href="class_base_share.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="baseshare_8h_source.html">baseshare.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_pitch___m_c_u_2baseshare_8h_source.html">baseshare.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for BaseShare:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_base_share.png" usemap="#BaseShare_map" alt=""/>
   <map id="BaseShare_map" name="BaseShare_map">
-<area href="class_queue.html" title="Implements a queue to transmit data from one RTOS task to another." alt="Queue&lt; dataType &gt;" shape="rect" coords="0,56,126,80"/>
-<area href="class_share.html" title="Class for data to be shared in a thread-safe manner between tasks." alt="Share&lt; DataType &gt;" shape="rect" coords="136,56,262,80"/>
+<area href="class_queue.html" alt="Queue&lt; char &gt;" shape="rect" coords="0,56,126,80"/>
+<area href="class_queue.html" alt="Queue&lt; char &gt;" shape="rect" coords="136,56,262,80"/>
+<area href="class_queue.html" title="Implements a queue to transmit data from one RTOS task to another." alt="Queue&lt; dataType &gt;" shape="rect" coords="272,56,398,80"/>
+<area href="class_queue.html" title="Implements a queue to transmit data from one RTOS task to another." alt="Queue&lt; dataType &gt;" shape="rect" coords="408,56,534,80"/>
+<area href="class_share.html" title="Class for data to be shared in a thread-safe manner between tasks." alt="Share&lt; DataType &gt;" shape="rect" coords="544,56,670,80"/>
+<area href="class_share.html" title="Class for data to be shared in a thread-safe manner between tasks." alt="Share&lt; DataType &gt;" shape="rect" coords="680,56,806,80"/>
+<area href="class_text_queue.html" title="Implements a queue to transmit text from one RTOS task to another." alt="TextQueue" shape="rect" coords="0,112,126,136"/>
+<area href="class_text_queue.html" title="Implements a queue to transmit text from one RTOS task to another." alt="TextQueue" shape="rect" coords="136,112,262,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -117,24 +123,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6f72027a717afada4679fd08d08bb4b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a6f72027a717afada4679fd08d08bb4b6">print_in_list</a> (Print &amp;printer)=0</td></tr>
 <tr class="memdesc:a6f72027a717afada4679fd08d08bb4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print one shared data item within a list.  <a href="class_base_share.html#a6f72027a717afada4679fd08d08bb4b6">More...</a><br /></td></tr>
 <tr class="separator:a6f72027a717afada4679fd08d08bb4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73741a4ad0b9b54f6f6da20855c2e30b"><td class="memItemLeft" align="right" valign="top"><a id="a73741a4ad0b9b54f6f6da20855c2e30b" name="a73741a4ad0b9b54f6f6da20855c2e30b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BaseShare</b> (const char *p_name=NULL)</td></tr>
+<tr class="separator:a73741a4ad0b9b54f6f6da20855c2e30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f72027a717afada4679fd08d08bb4b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a6f72027a717afada4679fd08d08bb4b6">print_in_list</a> (Print &amp;printer)=0</td></tr>
+<tr class="memdesc:a6f72027a717afada4679fd08d08bb4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print one shared data item within a list.  <a href="class_base_share.html#a6f72027a717afada4679fd08d08bb4b6">More...</a><br /></td></tr>
+<tr class="separator:a6f72027a717afada4679fd08d08bb4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:abc438f82d56097f13a1e791dcd617a72"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#abc438f82d56097f13a1e791dcd617a72">name</a> [16]</td></tr>
-<tr class="memdesc:abc438f82d56097f13a1e791dcd617a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the shared item.  <a href="class_base_share.html#abc438f82d56097f13a1e791dcd617a72">More...</a><br /></td></tr>
-<tr class="separator:abc438f82d56097f13a1e791dcd617a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8077022ea40c4ba44a6ff07ab24cac83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_base_share.html">BaseShare</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a8077022ea40c4ba44a6ff07ab24cac83">p_next</a></td></tr>
-<tr class="memdesc:a8077022ea40c4ba44a6ff07ab24cac83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next item in the linked list of shares.  <a href="class_base_share.html#a8077022ea40c4ba44a6ff07ab24cac83">More...</a><br /></td></tr>
-<tr class="separator:a8077022ea40c4ba44a6ff07ab24cac83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271f3f9c408670b55fa9daed6e7c3ccd"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a271f3f9c408670b55fa9daed6e7c3ccd">name</a> [16]</td></tr>
+<tr class="memdesc:a271f3f9c408670b55fa9daed6e7c3ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the shared item.  <a href="class_base_share.html#a271f3f9c408670b55fa9daed6e7c3ccd">More...</a><br /></td></tr>
+<tr class="separator:a271f3f9c408670b55fa9daed6e7c3ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa41d6f3c26a1fd43dd6c1418723447"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_base_share.html">BaseShare</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a4aa41d6f3c26a1fd43dd6c1418723447">p_next</a></td></tr>
+<tr class="memdesc:a4aa41d6f3c26a1fd43dd6c1418723447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next item in the linked list of shares.  <a href="class_base_share.html#a4aa41d6f3c26a1fd43dd6c1418723447">More...</a><br /></td></tr>
+<tr class="separator:a4aa41d6f3c26a1fd43dd6c1418723447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
-<tr class="memitem:a0657d8a02509e79c3bb418aaa9cce33c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_base_share.html">BaseShare</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a0657d8a02509e79c3bb418aaa9cce33c">p_newest</a> = NULL</td></tr>
-<tr class="memdesc:a0657d8a02509e79c3bb418aaa9cce33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the most recently created shared data item.  <a href="class_base_share.html#a0657d8a02509e79c3bb418aaa9cce33c">More...</a><br /></td></tr>
-<tr class="separator:a0657d8a02509e79c3bb418aaa9cce33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d40615e48646908188d36ac6c81d3d4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_base_share.html">BaseShare</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a6d40615e48646908188d36ac6c81d3d4">p_newest</a> = NULL</td></tr>
+<tr class="memdesc:a6d40615e48646908188d36ac6c81d3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the most recently created shared data item.  <a href="class_base_share.html#a6d40615e48646908188d36ac6c81d3d4">More...</a><br /></td></tr>
+<tr class="separator:a6d40615e48646908188d36ac6c81d3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
+<tr class="memitem:a4700b5f4d08a994556955c2aa75f3236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a4700b5f4d08a994556955c2aa75f3236">print_all_shares</a> (Print &amp;printer)</td></tr>
+<tr class="memdesc:a4700b5f4d08a994556955c2aa75f3236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the printout showing the status of all shared data items.  <a href="class_base_share.html#a4700b5f4d08a994556955c2aa75f3236">More...</a><br /></td></tr>
+<tr class="separator:a4700b5f4d08a994556955c2aa75f3236"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4700b5f4d08a994556955c2aa75f3236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_base_share.html#a4700b5f4d08a994556955c2aa75f3236">print_all_shares</a> (Print &amp;printer)</td></tr>
 <tr class="memdesc:a4700b5f4d08a994556955c2aa75f3236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the printout showing the status of all shared data items.  <a href="class_base_share.html#a4700b5f4d08a994556955c2aa75f3236">More...</a><br /></td></tr>
 <tr class="separator:a4700b5f4d08a994556955c2aa75f3236"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,7 +186,7 @@ Friends</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6f72027a717afada4679fd08d08bb4b6" name="a6f72027a717afada4679fd08d08bb4b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f72027a717afada4679fd08d08bb4b6">&#9670;&nbsp;</a></span>print_in_list()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f72027a717afada4679fd08d08bb4b6">&#9670;&nbsp;</a></span>print_in_list() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,13 +217,83 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; dataType &gt;</a>, and <a class="el" href="class_share.html#afbda236ee6fe392200a766d7e4e8a080">Share&lt; DataType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; dataType &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; char &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; dataType &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; char &gt;</a>, <a class="el" href="class_share.html#afbda236ee6fe392200a766d7e4e8a080">Share&lt; DataType &gt;</a>, and <a class="el" href="class_share.html#afbda236ee6fe392200a766d7e4e8a080">Share&lt; DataType &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a6f72027a717afada4679fd08d08bb4b6" name="a6f72027a717afada4679fd08d08bb4b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f72027a717afada4679fd08d08bb4b6">&#9670;&nbsp;</a></span>print_in_list() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void BaseShare::print_in_list </td>
+          <td>(</td>
+          <td class="paramtype">Print &amp;&#160;</td>
+          <td class="paramname"><em>printer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print one shared data item within a list. </p>
+<p >Make a printout showing the condition of this shared data item, such as the value of a shared variable or how full a queue's buffer is. This method must be overridden in each descendent class with a method that actually <em>does</em> something. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">printer</td><td>Reference to a serial device on which to print </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; dataType &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; char &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; dataType &gt;</a>, <a class="el" href="class_queue.html#ace8d2d512e49f018c5e2df4b5a2bf810">Queue&lt; char &gt;</a>, <a class="el" href="class_share.html#afbda236ee6fe392200a766d7e4e8a080">Share&lt; DataType &gt;</a>, and <a class="el" href="class_share.html#afbda236ee6fe392200a766d7e4e8a080">Share&lt; DataType &gt;</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="a4700b5f4d08a994556955c2aa75f3236" name="a4700b5f4d08a994556955c2aa75f3236"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4700b5f4d08a994556955c2aa75f3236">&#9670;&nbsp;</a></span>print_all_shares</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4700b5f4d08a994556955c2aa75f3236">&#9670;&nbsp;</a></span>print_all_shares <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_all_shares </td>
+          <td>(</td>
+          <td class="paramtype">Print &amp;&#160;</td>
+          <td class="paramname"><em>printer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start the printout showing the status of all shared data items. </p>
+<p >This method begins printing out the status of all items in the system's linked list of shared data items (queues, task shares, and so on). The most recently created share's status is printed first, followed by the status of other shares in reverse order of creation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">printer</td><td>Pointer to a serial device on which to print </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4700b5f4d08a994556955c2aa75f3236" name="a4700b5f4d08a994556955c2aa75f3236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4700b5f4d08a994556955c2aa75f3236">&#9670;&nbsp;</a></span>print_all_shares <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,8 +327,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="abc438f82d56097f13a1e791dcd617a72" name="abc438f82d56097f13a1e791dcd617a72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc438f82d56097f13a1e791dcd617a72">&#9670;&nbsp;</a></span>name</h2>
+<a id="a271f3f9c408670b55fa9daed6e7c3ccd" name="a271f3f9c408670b55fa9daed6e7c3ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a271f3f9c408670b55fa9daed6e7c3ccd">&#9670;&nbsp;</a></span>name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +337,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char BaseShare::name[16]</td>
+          <td class="memname">char BaseShare::name</td>
         </tr>
       </table>
   </td>
@@ -267,8 +352,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a0657d8a02509e79c3bb418aaa9cce33c" name="a0657d8a02509e79c3bb418aaa9cce33c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0657d8a02509e79c3bb418aaa9cce33c">&#9670;&nbsp;</a></span>p_newest</h2>
+<a id="a6d40615e48646908188d36ac6c81d3d4" name="a6d40615e48646908188d36ac6c81d3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d40615e48646908188d36ac6c81d3d4">&#9670;&nbsp;</a></span>p_newest</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +362,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_base_share.html">BaseShare</a> * BaseShare::p_newest = NULL</td>
+          <td class="memname">static <a class="el" href="class_base_share.html">BaseShare</a> * BaseShare::p_newest = NULL</td>
         </tr>
       </table>
   </td>
@@ -292,8 +377,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a8077022ea40c4ba44a6ff07ab24cac83" name="a8077022ea40c4ba44a6ff07ab24cac83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8077022ea40c4ba44a6ff07ab24cac83">&#9670;&nbsp;</a></span>p_next</h2>
+<a id="a4aa41d6f3c26a1fd43dd6c1418723447" name="a4aa41d6f3c26a1fd43dd6c1418723447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa41d6f3c26a1fd43dd6c1418723447">&#9670;&nbsp;</a></span>p_next</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,7 +387,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_base_share.html">BaseShare</a>* BaseShare::p_next</td>
+          <td class="memname"><a class="el" href="class_base_share.html">BaseShare</a> * BaseShare::p_next</td>
         </tr>
       </table>
   </td>
@@ -318,8 +403,10 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="baseshare_8h_source.html">baseshare.h</a></li>
-<li>src/<a class="el" href="baseshare_8cpp.html">baseshare.cpp</a></li>
+<li>src/Pitch_MCU/<a class="el" href="_pitch___m_c_u_2baseshare_8h_source.html">baseshare.h</a></li>
+<li>src/Yaw_MCU/<a class="el" href="_yaw___m_c_u_2baseshare_8h_source.html">baseshare.h</a></li>
+<li>src/Pitch_MCU/<a class="el" href="_pitch___m_c_u_2baseshare_8cpp.html">baseshare.cpp</a></li>
+<li>src/Yaw_MCU/<a class="el" href="_yaw___m_c_u_2baseshare_8cpp.html">baseshare.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
