@@ -60,5 +60,9 @@
  * then no change is necessary. However, if desired, a different circuit may be used that periodically draws power to keep the powerbank "awake." A quick internet search will yield 
  * examples of such circuits. 
  * 
+ * One other hardware improvement we could make that would also require a software change would be to replace the slip ring we have with servo motor slip rings, or other slip rings more suitable
+ * for mounting sensors. This would do away with the need for bluetooth or a second microcontoller. From there, the MCU could send signals through a wired connection, which could potentially be 
+ * faster and most likely have less noise.
+ * 
  * 
  */
