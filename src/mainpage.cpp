@@ -40,6 +40,12 @@
  * 
  * This code uses vanilla FreeRTOS. However, FreeRTOS can be forked from https://github.com/stm32duino/STM32FreeRTOS.git to be modified and sped up. 
  * 
+ * <b> <em> If the current code is modified, then ensure that the correct code is uploaded to the correct microcontrollers. The environment can be chosen in the bar available at the bottom
+ * if PlatformIO is open. Make sure YAW gets uploaded to the Yaw MCU and that PITCH gets uploaded to the Pitch MCU. The two can be differentiated by whether or not SB1 has been shorted or not.
+ * Additionally, to upload anything to the Pitch MCU, move the jumper on JP5 such that it connects pins 2 and 3. Return it such that it connects pins 1 and 2 once the upload is complete. JP5 chooses
+ * if the MCU receives power from the usb port or from the E5V pin. </em> </b>
+ *  
+ * 
  * \section improvementHW Areas For Improvement in Hardware
  * 
  * In terms of hardware, the Arduino Shield is functional but does not have the best form factor. Additionally, the solution to maintaining a high enough load on the power bank to keep
