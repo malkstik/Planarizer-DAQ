@@ -12,7 +12,7 @@
  * \n
  * For more information, refer to the following links \n
  *     - GitHub:                   https://github.com/malkstik/Planarizer-DAQ
- *     - Senior Project Report:    
+ *     - Senior Project Report:    https://github.com/malkstik/Planarizer-DAQ/blob/main/Final%20Design%20Review%20Planarizer.pdf
  * 
  * \section yaw_task_dia Task Diagram 
  * 

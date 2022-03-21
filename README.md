@@ -17,4 +17,5 @@ See project documentation here:
 https://malkstik.github.io/Planarizer-DAQ/
 
 See Senior Project report here:
+https://github.com/malkstik/Planarizer-DAQ/blob/main/Final%20Design%20Review%20Planarizer.pdf
 
